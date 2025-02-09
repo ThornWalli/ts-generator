@@ -1,31 +1,40 @@
-[
-  {
-    "returnType": {
+{
+  "imports": [
+    {
+      "alias": "Observable",
       "name": "Observable",
-      "type": "number",
-      "generic": false
+      "path": "rxjs"
     },
-    "name": "simpleAddition",
-    "operators": [
-      {
-        "parameters": [
-          {
-            "name": "value"
-          }
-        ],
-        "name": "add",
-        "importDeclaration": {
-          "local": "add",
-          "imported": "add",
-          "path": "./operators"
+    {
+      "alias": "add",
+      "name": "add",
+      "path": "./operators"
+    }
+  ],
+  "operators": [
+    {
+      "returnType": {
+        "name": "Observable",
+        "type": "number",
+        "generic": false
+      },
+      "name": "simpleAddition",
+      "operators": [
+        {
+          "parameters": [
+            {
+              "name": "value"
+            }
+          ],
+          "name": "add"
         }
-      }
-    ],
-    "parameters": [
-      {
-        "name": "value",
-        "type": "number"
-      }
-    ]
-  }
-]
+      ],
+      "parameters": [
+        {
+          "name": "value",
+          "type": "number"
+        }
+      ]
+    }
+  ]
+}

@@ -9,11 +9,16 @@ const fileContent = await readFile(`test/fixtures/${fixture}/index.ts`, 'utf-8')
 
 const sourceFile = ts.createSourceFile('index.ts', fileContent, ts.ScriptTarget.ESNext, true);
 
-const importDeclarations = getImportDeclarations(sourceFile);
-console.debug('importDeclarations:', JSON.stringify(importDeclarations, null, 2));
+const imports = getImportDeclarations(sourceFile);
+console.debug('imports:', JSON.stringify(imports, null, 2));
 
-const result = getOperators(sourceFile, importDeclarations);
-console.debug('result:', JSON.stringify(result, null, 2));
+const operators = getOperators(sourceFile);
+console.debug('operators:', JSON.stringify(operators, null, 2));
+
+const result = {
+  imports,
+  operators
+};
 
 const dist = join('.output', fixture);
 await mkdir(dist, { recursive: true });

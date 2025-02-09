@@ -1,41 +1,16 @@
 import ts from 'typescript';
-import { ImportDeclaration, OperatorDescription, ParsedOperatorDescription } from '../types.ts';
+import { Configuration, ImportDeclaration, OperatorDescription } from '../types.ts';
 import { groupBy, uniqueBy } from '../utils.ts';
 
-export function getOperators(config: OperatorDescription[]): {
-  functions: ts.FunctionDeclaration[];
-  imports: ts.ImportDeclaration[];
-} {
-  // extract functions and imports
-  const { functions, imports } = config
-    .map(operatorConfig => createOperator(operatorConfig))
-    .reduce(
-      (result: { functions: ts.FunctionDeclaration[]; imports: ImportDeclaration[] }, operator) => {
-        result.functions.push(operator.function);
-        result.imports.push(...operator.imports);
-        return result;
-      },
-      {
-        functions: [],
-        imports: []
-      }
-    );
-
+export function getImports(config: Configuration): ts.ImportDeclaration[] {
   // prepare imports
-  const importMapByPath = groupBy(uniqueBy(imports, 'local'), 'path', { unique: true });
+  const importMapByPath = groupBy(uniqueBy(config.imports, 'alias'), 'path', { unique: true });
 
-  importMapByPath['rxjs'] = importMapByPath['rxjs'] || [];
-  // IMPORTANT: default opertator type import
-  importMapByPath['rxjs'].push({
-    local: 'Observable',
-    imported: 'Observable',
-    path: 'rxjs'
-  });
+  return createImportDeclarations(importMapByPath);
+}
 
-  return {
-    functions,
-    imports: createImportDeclarations(importMapByPath)
-  };
+export function getOperators(config: Configuration): ts.FunctionDeclaration[] {
+  return config.operators.map(operatorConfig => createOperator(operatorConfig));
 }
 
 export function createImportDeclarations(importMapByPath: Record<string, ImportDeclaration[]>) {
@@ -47,9 +22,9 @@ export function createImportDeclarations(importMapByPath: Record<string, ImportD
           false,
           undefined,
           ts.factory.createNamedImports(
-            importDeclarations.map(({ local, imported }) => {
-              const propertyName = local === imported ? undefined : ts.factory.createIdentifier(imported);
-              return ts.factory.createImportSpecifier(false, propertyName, ts.factory.createIdentifier(local));
+            importDeclarations.map(({ alias, name }) => {
+              const propertyName = alias === name ? undefined : ts.factory.createIdentifier(name);
+              return ts.factory.createImportSpecifier(false, propertyName, ts.factory.createIdentifier(alias));
             })
           )
         ),
@@ -59,7 +34,7 @@ export function createImportDeclarations(importMapByPath: Record<string, ImportD
     .flat();
 }
 
-export function createOperator(options: OperatorDescription): ParsedOperatorDescription {
+export function createOperator(options: OperatorDescription): ts.FunctionDeclaration {
   const innerFunction = ts.factory.createArrowFunction(
     [],
     [],
@@ -120,12 +95,5 @@ export function createOperator(options: OperatorDescription): ParsedOperatorDesc
     block
   );
 
-  const imports: ImportDeclaration[] = options.operators
-    .map(({ importDeclaration }) => importDeclaration)
-    .filter((importDeclaration): importDeclaration is ImportDeclaration => importDeclaration !== undefined);
-
-  return {
-    function: functionDeclaration,
-    imports
-  };
+  return functionDeclaration;
 }

@@ -1,5 +1,10 @@
 import ts from 'typescript';
 
+export type Configuration = {
+  imports: ImportDeclaration[];
+  operators: OperatorDescription[];
+};
+
 export type ReturnType = {
   type: string;
   name: string;
@@ -14,14 +19,13 @@ export type OperatorDescription = {
 };
 export type SubOperatorDescription = {
   name: string;
-  importDeclaration: ImportDeclaration | undefined;
   parameters: ParameterDescription[];
 };
 export type ParameterDescription = { name: string; type: string };
 
 export type ImportDeclaration = {
-  local: string;
-  imported: string;
+  alias: string;
+  name: string;
   path: string;
 };
 

@@ -1,13 +1,14 @@
 import { operatorA, operatorB } from './operators';
-import { operatorB as operatorC } from './operators';
+import { operatorDummy as operatorC } from './operators';
 import { Observable } from 'rxjs';
-export function foo<T>() {
+import { Dummy } from './types';
+export function foo<T>(text: string, numeric: number) {
   return (source: Observable<T>): Observable<T> => {
-    return source.pipe(operatorA(), operatorB());
+    return source.pipe(operatorA(), operatorB(text, numeric));
   };
 }
-export function bar<T>() {
+export function bar<T>(dummy: Dummy) {
   return (source: Observable<T>): Observable<T> => {
-    return source.pipe(operatorC());
+    return source.pipe(operatorC(dummy));
   };
 }

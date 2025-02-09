@@ -1,16 +1,19 @@
+import { Configuration } from './../types';
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import * as ts from 'typescript';
-import { OperatorDescription } from '../types.ts';
-import { getOperators } from '../build/utils.ts';
+import { getImports, getOperators } from '../build/utils.ts';
 import consola from 'consola';
 import { join } from 'path';
 
 const fixture = process.env.npm_config_fixture || 'default';
-const config: OperatorDescription[] = await readFile(`test/fixtures/${fixture}/config.json`, 'utf-8').then(JSON.parse);
+const config: Configuration = (await readFile(`test/fixtures/${fixture}/config.json`, 'utf-8').then(
+  JSON.parse
+)) as Configuration;
 
 const sourceFile = ts.createSourceFile('test.ts', '', ts.ScriptTarget.ESNext, false, ts.ScriptKind.TS);
 
-const { functions, imports } = getOperators(config);
+const imports = getImports(config);
+const functions = getOperators(config);
 
 const updatedSourceFile = ts.factory.updateSourceFile(sourceFile, [...imports, ...functions]);
 

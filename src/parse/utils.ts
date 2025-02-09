@@ -9,23 +9,23 @@ export function getImportDeclarations(sourceFile: ts.SourceFile) {
         ? importDeclaration.importClause.namedBindings.elements
         : [];
 
-    const specifiers: { imported: string | undefined; local: string | undefined }[] = [];
+    const specifiers: { name: string | undefined; alias: string | undefined }[] = [];
     importSpecifiers.forEach(importSpecifier => {
       if (ts.isImportSpecifier(importSpecifier)) {
-        const local = importSpecifier.name.text;
-        const imported = importSpecifier.propertyName ? importSpecifier.propertyName.text : importSpecifier.name.text;
+        const alias = importSpecifier.name.text;
+        const name = importSpecifier.propertyName ? importSpecifier.propertyName.text : importSpecifier.name.text;
         specifiers.push({
-          local,
-          imported
+          alias,
+          name
         });
       }
     });
 
-    specifiers.forEach(({ imported, local }) => {
-      if (imported && local) {
+    specifiers.forEach(({ name, alias }) => {
+      if (name && alias) {
         result.push({
-          local,
-          imported,
+          alias,
+          name,
           path: (importDeclaration.moduleSpecifier as ts.StringLiteral).text
         });
       }
@@ -44,7 +44,7 @@ const getFunctionParameters = (functionDeclaration: ts.FunctionDeclaration) => {
   return parameters;
 };
 
-const getSubOperators = (pipeArguments: ts.Expression[], importDeclaration: ImportDeclaration[]) => {
+const getSubOperators = (pipeArguments: ts.Expression[]) => {
   return pipeArguments.reduce((result, expression) => {
     if (ts.isCallExpression(expression)) {
       expression.arguments.forEach(argument => {
@@ -56,13 +56,7 @@ const getSubOperators = (pipeArguments: ts.Expression[], importDeclaration: Impo
 
           result.push({
             parameters,
-            name: identifier.text,
-            importDeclaration: importDeclaration.find(importDeclaration => {
-              return (
-                (importDeclaration.local && importDeclaration.local === identifier.text) ||
-                (!importDeclaration.local && importDeclaration.imported === identifier.text)
-              );
-            })
+            name: identifier.getText()
           });
         }
       });
@@ -95,7 +89,7 @@ const getTypeByKind = (kind: ts.SyntaxKind) => {
   }
 };
 
-export function getOperators(sourceFile: ts.SourceFile, importDeclaration: ImportDeclaration[]) {
+export function getOperators(sourceFile: ts.SourceFile) {
   const functionDeclarations = sourceFile.statements.filter(ts.isFunctionDeclaration);
   return functionDeclarations.reduce((result: OperatorDescription[], functionDeclaration) => {
     if (functionDeclaration.name) {
@@ -118,7 +112,7 @@ export function getOperators(sourceFile: ts.SourceFile, importDeclaration: Impor
             }
           }
           const pipeArguments: ts.Expression[] = getPipeArguments(arrowFunction);
-          operators.push(...getSubOperators(pipeArguments, importDeclaration));
+          operators.push(...getSubOperators(pipeArguments));
         }
       }
 

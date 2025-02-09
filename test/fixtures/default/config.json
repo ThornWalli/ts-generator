@@ -1,51 +1,91 @@
-[
-  {
-    "returnType": {
-      "name": "Observable",
-      "type": "T",
-      "generic": true
+{
+  "imports": [
+    {
+      "alias": "operatorA",
+      "name": "operatorA",
+      "path": "./operators"
     },
-    "name": "foo",
-    "operators": [
-      {
-        "parameters": [],
-        "name": "operatorA",
-        "importDeclaration": {
-          "local": "operatorA",
-          "imported": "operatorA",
-          "path": "./operators"
-        }
+    {
+      "alias": "operatorB",
+      "name": "operatorB",
+      "path": "./operators"
+    },
+    {
+      "alias": "operatorC",
+      "name": "operatorDummy",
+      "path": "./operators"
+    },
+    {
+      "alias": "Observable",
+      "name": "Observable",
+      "path": "rxjs"
+    },
+    {
+      "alias": "Dummy",
+      "name": "Dummy",
+      "path": "./types"
+    }
+  ],
+  "operators": [
+    {
+      "returnType": {
+        "name": "Observable",
+        "type": "T",
+        "generic": true
       },
-      {
-        "parameters": [],
-        "name": "operatorB",
-        "importDeclaration": {
-          "local": "operatorB",
-          "imported": "operatorB",
-          "path": "./operators"
+      "name": "foo",
+      "operators": [
+        {
+          "parameters": [],
+          "name": "operatorA"
+        },
+        {
+          "parameters": [
+            {
+              "name": "text"
+            },
+            {
+              "name": "numeric"
+            }
+          ],
+          "name": "operatorB"
         }
-      }
-    ],
-    "parameters": []
-  },
-  {
-    "returnType": {
-      "name": "Observable",
-      "type": "T",
-      "generic": true
+      ],
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string"
+        },
+        {
+          "name": "numeric",
+          "type": "number"
+        }
+      ]
     },
-    "name": "bar",
-    "operators": [
-      {
-        "parameters": [],
-        "name": "operatorC",
-        "importDeclaration": {
-          "local": "operatorC",
-          "imported": "operatorB",
-          "path": "./operators"
+    {
+      "returnType": {
+        "name": "Observable",
+        "type": "T",
+        "generic": true
+      },
+      "name": "bar",
+      "operators": [
+        {
+          "parameters": [
+            {
+              "name": "dummy"
+            }
+          ],
+          "name": "operatorC"
+
         }
-      }
-    ],
-    "parameters": []
-  }
-]
+      ],
+      "parameters": [
+        {
+          "name": "dummy",
+          "type": "Dummy"
+        }
+      ]
+    }
+  ]
+}

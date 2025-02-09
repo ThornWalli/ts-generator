@@ -8,74 +8,115 @@
 From JSON:
 
 ```json
-[
-  {
-    "returnType": {
-      "name": "Observable",
-      "type": "T",
-      "generic": true
+{
+  "imports": [
+    {
+      "alias": "operatorA",
+      "name": "operatorA",
+      "path": "./operators"
     },
-    "name": "foo",
-    "operators": [
-      {
-        "parameters": [],
-        "name": "operatorA",
-        "importDeclaration": {
-          "local": "operatorA",
-          "imported": "operatorA",
-          "path": "./operators"
-        }
+    {
+      "alias": "operatorB",
+      "name": "operatorB",
+      "path": "./operators"
+    },
+    {
+      "alias": "operatorC",
+      "name": "operatorDummy",
+      "path": "./operators"
+    },
+    {
+      "alias": "Observable",
+      "name": "Observable",
+      "path": "rxjs"
+    },
+    {
+      "alias": "Dummy",
+      "name": "Dummy",
+      "path": "./types"
+    }
+  ],
+  "operators": [
+    {
+      "returnType": {
+        "name": "Observable",
+        "type": "T",
+        "generic": true
       },
-      {
-        "parameters": [],
-        "name": "operatorB",
-        "importDeclaration": {
-          "local": "operatorB",
-          "imported": "operatorB",
-          "path": "./operators"
+      "name": "foo",
+      "operators": [
+        {
+          "parameters": [],
+          "name": "operatorA"
+        },
+        {
+          "parameters": [
+            {
+              "name": "text"
+            },
+            {
+              "name": "numeric"
+            }
+          ],
+          "name": "operatorB"
         }
-      }
-    ],
-    "parameters": []
-  },
-  {
-    "returnType": {
-      "name": "Observable",
-      "type": "T",
-      "generic": true
+      ],
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string"
+        },
+        {
+          "name": "numeric",
+          "type": "number"
+        }
+      ]
     },
-    "name": "bar",
-    "operators": [
-      {
-        "parameters": [],
-        "name": "operatorC",
-        "importDeclaration": {
-          "local": "operatorC",
-          "imported": "operatorB",
-          "path": "./operators"
+    {
+      "returnType": {
+        "name": "Observable",
+        "type": "T",
+        "generic": true
+      },
+      "name": "bar",
+      "operators": [
+        {
+          "parameters": [
+            {
+              "name": "dummy"
+            }
+          ],
+          "name": "operatorC"
         }
-      }
-    ],
-    "parameters": []
-  }
-]
+      ],
+      "parameters": [
+        {
+          "name": "dummy",
+          "type": "Dummy"
+        }
+      ]
+    }
+  ]
+}
 ```
 
 to TypeScript:
 
 ```ts
-import { operatorA, operatorB, operatorB as operatorC } from './operators';
+import { operatorA, operatorB, operatorDummy as operatorC } from './operators';
 import { Observable } from 'rxjs';
-export function foo<T>() {
+import { Dummy } from './types';
+export function foo<T>(text: string, numeric: number) {
   return (source: Observable<T>): Observable<T> => {
-    return source.pipe(operatorA(), operatorB());
+    return source.pipe(operatorA(), operatorB(text, numeric));
   };
 }
-export function bar<T>() {
+export function bar<T>(dummy: Dummy) {
   return (source: Observable<T>): Observable<T> => {
-    return source.pipe(operatorC());
+    return source.pipe(operatorC(dummy));
   };
 }
+
 ```
 
 ## Development
