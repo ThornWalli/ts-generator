@@ -8,20 +8,63 @@ export function getImportDeclarations(sourceFile: ts.SourceFile) {
       importDeclaration.importClause?.namedBindings && ts.isNamedImports(importDeclaration.importClause.namedBindings)
         ? importDeclaration.importClause.namedBindings.elements
         : [];
-    const specifiers: { imported: string; local: string }[] = importSpecifiers.map(importSpecifier => {
-      const imported = importSpecifier.name.text;
-      const local = importSpecifier.propertyName ? importSpecifier.propertyName.text : importSpecifier.name.text;
-      return {
-        imported,
-        local
-      };
+
+    const specifiers: { imported: string | undefined; local: string | undefined }[] = [];
+    importSpecifiers.forEach(importSpecifier => {
+      if (ts.isImportSpecifier(importSpecifier)) {
+        const local = importSpecifier.name.text;
+        const imported = importSpecifier.propertyName ? importSpecifier.propertyName.text : importSpecifier.name.text;
+        specifiers.push({
+          local,
+          imported
+        });
+      }
     });
+
+    // let importName, localName;
+    // const [imported, local] = importSpecifiers;
+    // const specifiers: { imported: string | undefined; local: string | undefined }[] = [];
+    // if (imported && ts.isImportSpecifier(imported)) {
+    //   importName = imported.name.text;
+    //   importName = imported.propertyName ? imported.propertyName.text : imported.name.text;
+    // }
+    // if (local && ts.isImportSpecifier(local)) {
+    //   localName = local.name.text;
+    //   localName = local.propertyName ? local.propertyName.text : local.name.text;
+    // }
+    // specifiers.push({
+    //   imported: importName,
+    //   local: localName
+    // });
+    // else if() {
+    //   const importName = imported.name.text;
+    //   const localName = local.name.text;
+    //   specifiers.push({
+    //     imported: importName,
+    //     local: localName
+    //   });
+    // }
+
+    // const specifiers: { imported: string; local: string }[] = importSpecifiers.map(importSpecifier => {
+    //   debugger;
+    //   if (ts.isImportEqualsDeclaration(importSpecifier)) {
+    //   } else {
+    //     const imported = importSpecifier.name.text;
+    //     const local = importSpecifier.propertyName ? importSpecifier.propertyName.text : importSpecifier.name.text;
+    //     return {
+    //       imported,
+    //       local
+    //     };
+    //   }
+    // });
     specifiers.forEach(({ imported, local }) => {
-      result.push({
-        local,
-        imported,
-        path: (importDeclaration.moduleSpecifier as ts.StringLiteral).text
-      });
+      if (imported && local) {
+        result.push({
+          local,
+          imported,
+          path: (importDeclaration.moduleSpecifier as ts.StringLiteral).text
+        });
+      }
     });
     return result;
   }, []);
@@ -54,9 +97,12 @@ export function getOperators(sourceFile: ts.SourceFile, importDeclaration: Impor
                   const identifier = argument.expression;
                   operators.push({
                     name: identifier.text,
-                    importDeclaration: importDeclaration.find(
-                      importDeclaration => importDeclaration.local === identifier.text
-                    )
+                    importDeclaration: importDeclaration.find(importDeclaration => {
+                      return (
+                        (importDeclaration.local && importDeclaration.local === identifier.text) ||
+                        (!importDeclaration.local && importDeclaration.imported === identifier.text)
+                      );
+                    })
                   });
                 }
               });

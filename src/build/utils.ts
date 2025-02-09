@@ -49,7 +49,7 @@ export function createImportDeclarations(importMapByPath: Record<string, ImportD
           ts.factory.createNamedImports(
             importDeclarations.map(({ local, imported }) => {
               const propertyName = local === imported ? undefined : ts.factory.createIdentifier(imported);
-              return ts.factory.createImportSpecifier(false, propertyName, ts.factory.createIdentifier(imported));
+              return ts.factory.createImportSpecifier(false, propertyName, ts.factory.createIdentifier(local));
             })
           )
         ),

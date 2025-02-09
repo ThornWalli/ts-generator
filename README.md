@@ -1,6 +1,9 @@
 # ts-generator
 
-Just a test…
+**Generate**
+
+- from TypeScript to JSON
+- from JSON to TypeScript
 
 From JSON:
 
@@ -24,14 +27,6 @@ From JSON:
           "imported": "operatorB",
           "path": "./operators"
         }
-      },
-      {
-        "name": "operatorC",
-        "importDeclaration": {
-          "local": "operatorC",
-          "imported": "operatorC",
-          "path": "./operators"
-        }
       }
     ],
     "parameters": []
@@ -40,10 +35,10 @@ From JSON:
     "name": "bar",
     "operators": [
       {
-        "name": "operatorA",
+        "name": "operatorC",
         "importDeclaration": {
-          "local": "operatorA",
-          "imported": "operatorA",
+          "local": "operatorC",
+          "imported": "operatorB",
           "path": "./operators"
         }
       }
@@ -56,16 +51,16 @@ From JSON:
 to TypeScript:
 
 ```ts
-import { operatorA, operatorB, operatorC } from './operators';
+import { operatorA, operatorB, operatorB as operatorC } from './operators';
 import { Observable } from 'rxjs';
 export function foo<T>() {
   return (source: Observable<T>): Observable<T> => {
-    return source.pipe(operatorA(), operatorB(), operatorC());
+    return source.pipe(operatorA(), operatorB());
   };
 }
 export function bar<T>() {
   return (source: Observable<T>): Observable<T> => {
-    return source.pipe(operatorA());
+    return source.pipe(operatorC());
   };
 }
 ```

@@ -17,14 +17,6 @@
           "imported": "operatorB",
           "path": "./operators"
         }
-      },
-      {
-        "name": "operatorC",
-        "importDeclaration": {
-          "local": "operatorC",
-          "imported": "operatorC",
-          "path": "./operators"
-        }
       }
     ],
     "parameters": []
@@ -33,10 +25,10 @@
     "name": "bar",
     "operators": [
       {
-        "name": "operatorA",
+        "name": "operatorC",
         "importDeclaration": {
-          "local": "operatorA",
-          "imported": "operatorA",
+          "local": "operatorC",
+          "imported": "operatorB",
           "path": "./operators"
         }
       }
