@@ -8,4 +8,9 @@ describe('build', () => {
     const config = await getFixtureConfig('default');
     expect(build(config)).toEqual(content);
   });
+  test('build (math)', async () => {
+    const { content } = await getFixtureFile('math');
+    const config = await getFixtureConfig('math');
+    expect(build(config)).toEqual(content);
+  });
 });
