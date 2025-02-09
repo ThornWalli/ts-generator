@@ -1,5 +1,5 @@
 import ts from 'typescript';
-import { ImportDeclaration, OperatorDescription, ParsedOperatorDescription } from '../type';
+import { ImportDeclaration, OperatorDescription, ParsedOperatorDescription } from '../types.ts';
 import { groupBy, uniqueBy } from '../utils.ts';
 
 export function getOperators(config: OperatorDescription[]): {

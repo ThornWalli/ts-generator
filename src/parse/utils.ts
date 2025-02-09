@@ -1,5 +1,5 @@
 import ts from 'typescript';
-import { ImportDeclaration, OperatorDescription, SubOperatorDescription } from '../type';
+import { ImportDeclaration, OperatorDescription, SubOperatorDescription } from '../types';
 
 export function getImportDeclarations(sourceFile: ts.SourceFile) {
   const importDeclarations = sourceFile.statements.filter(ts.isImportDeclaration);

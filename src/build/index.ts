@@ -1,6 +1,6 @@
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import * as ts from 'typescript';
-import { OperatorDescription } from '../type.ts';
+import { OperatorDescription } from '../types.ts';
 import { getOperators } from '../build/utils.ts';
 import consola from 'consola';
 
