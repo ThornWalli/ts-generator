@@ -6,7 +6,7 @@ export type Configuration = {
 };
 
 export type ReturnType = {
-  type: string;
+  type: TYPE_DEFINITION | string;
   name: string;
   generic: boolean;
 };
