@@ -92,19 +92,23 @@
         "params": [
           {
             "name": "text",
-            "type": "string"
+            "type": "string",
+            "description": "String Property"
           },
           {
             "name": "numeric",
-            "type": "number"
+            "type": "number",
+            "description": "Numeric Property"
           },
           {
             "name": "dummy",
-            "type": "dummy"
+            "type": "dummy",
+            "description": "Dummy Property"
           }
         ],
         "returns": {
           "name": "Observable",
+          "description": "Return Value",
           "type": [
             "number"
           ]

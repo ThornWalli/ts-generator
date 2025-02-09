@@ -102,19 +102,23 @@ From JSON:
         "params": [
           {
             "name": "text",
-            "type": "string"
+            "type": "string",
+            "description": "String Property"
           },
           {
             "name": "numeric",
-            "type": "number"
+            "type": "number",
+            "description": "Numeric Property"
           },
           {
             "name": "dummy",
-            "type": "dummy"
+            "type": "dummy",
+            "description": "Dummy Property"
           }
         ],
         "returns": {
           "name": "Observable",
+          "description": "Return Value",
           "type": [
             "number"
           ]
@@ -180,10 +184,10 @@ export function foo<T>(text: string, numeric: number) { return (source: Observab
 export function bar<T>(dummy: Dummy) { return (source: Observable<T>): Observable<T> => { return source.pipe(operatorC(dummy)); }; }
 /**
  * foobar description
- * @param {string} text
- * @param {number} numeric
- * @param {dummy} dummy
- * @returns {Observable<number>}
+ * @param {string} text String Property
+ * @param {number} numeric Numeric Property
+ * @param {dummy} dummy Dummy Property
+ * @returns {Observable<number>} Return Value
  */
 export function foobar(text: string, numeric: number, dummy: Dummy) { return (source: Observable<number>): Observable<number> => { return source.pipe(operatorA(), operatorB(text, numeric), operatorC(dummy)); }; }
 ```
