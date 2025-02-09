@@ -1,6 +1,6 @@
 import { Configuration } from './../types';
 import { mkdir, readFile, writeFile } from 'fs/promises';
-import { build } from '../build/utils.ts';
+import { build } from './utils/index.ts';
 import consola from 'consola';
 import { join } from 'path';
 

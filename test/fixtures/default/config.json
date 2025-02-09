@@ -87,6 +87,29 @@
       ]
     },
     {
+      "docType": {
+        "description": "foobar description",
+        "params": [
+          {
+            "name": "text",
+            "type": "string"
+          },
+          {
+            "name": "numeric",
+            "type": "number"
+          },
+          {
+            "name": "dummy",
+            "type": "dummy"
+          }
+        ],
+        "returns": {
+          "name": "Observable",
+          "type": [
+            "number"
+          ]
+        }
+      },
       "returnType": {
         "name": "Observable",
         "type": "number",

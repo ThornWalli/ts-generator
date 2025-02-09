@@ -13,4 +13,9 @@ describe('parse', () => {
     const config = await getFixtureConfig('math');
     expect(parse(filename, content)).toEqual(config);
   });
+  test('parse (doctype)', async () => {
+    const { filename, content } = await getFixtureFile('doctype');
+    const config = await getFixtureConfig('doctype');
+    expect(parse(filename, content)).toEqual(config);
+  });
 });

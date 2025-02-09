@@ -1,37 +1,9 @@
 import ts from 'typescript';
-import { Configuration, ImportDeclaration, OperatorDescription } from '../types.ts';
-import { groupBy, uniqueBy } from '../utils.ts';
-
-export function getImports(config: Configuration): ts.ImportDeclaration[] {
-  // prepare imports
-  const importMapByPath = groupBy(uniqueBy(config.imports, 'alias'), 'path', { unique: true });
-
-  return createImportDeclarations(importMapByPath);
-}
+import { Configuration, OperatorDescription } from '../../types.ts';
+import { addDocType } from './doctype.ts';
 
 export function getOperators(config: Configuration): ts.FunctionDeclaration[] {
   return config.operators.map(operatorConfig => createOperator(operatorConfig));
-}
-
-export function createImportDeclarations(importMapByPath: Record<string, ImportDeclaration[]>) {
-  return Object.entries(importMapByPath)
-    .map(([path, importDeclarations]) => {
-      return ts.factory.createImportDeclaration(
-        undefined,
-        ts.factory.createImportClause(
-          false,
-          undefined,
-          ts.factory.createNamedImports(
-            importDeclarations.map(({ alias, name }) => {
-              const propertyName = alias === name ? undefined : ts.factory.createIdentifier(name);
-              return ts.factory.createImportSpecifier(false, propertyName, ts.factory.createIdentifier(alias));
-            })
-          )
-        ),
-        ts.factory.createStringLiteral(path)
-      );
-    })
-    .flat();
 }
 
 export function createOperator(options: OperatorDescription): ts.FunctionDeclaration {
@@ -95,17 +67,9 @@ export function createOperator(options: OperatorDescription): ts.FunctionDeclara
     block
   );
 
+  if (options.docType) {
+    addDocType(functionDeclaration, options.docType);
+  }
+
   return functionDeclaration;
-}
-
-export function build(config: Configuration) {
-  const sourceFile = ts.createSourceFile('index.ts', '', ts.ScriptTarget.ESNext, false, ts.ScriptKind.TS);
-
-  const imports = getImports(config);
-  const functions = getOperators(config);
-
-  const updatedSourceFile = ts.factory.updateSourceFile(sourceFile, [...imports, ...functions]);
-
-  const printer = ts.createPrinter();
-  return printer.printFile(updatedSourceFile);
 }

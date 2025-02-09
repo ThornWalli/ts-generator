@@ -1,5 +1,5 @@
 import { mkdir, readFile, writeFile } from 'fs/promises';
-import { parse } from './utils.ts';
+import { parse } from './utils/index.ts';
 import consola from 'consola';
 import { join } from 'path';
 

@@ -1,0 +1,53 @@
+{
+  "imports": [
+    {
+      "alias": "Observable",
+      "name": "Observable",
+      "path": "rxjs"
+    },
+    {
+      "alias": "operatorA",
+      "name": "operatorA",
+      "path": "./operators"
+    }
+  ],
+  "operators": [
+    {
+      "docType": {
+        "description": "Function Description",
+        "params": [
+          {
+            "name": "value",
+            "type": "number",
+            "description": "Property Description"
+          }
+        ],
+        "returns": {
+          "name": "Observable",
+          "description": "Return Description",
+          "type": [
+            "number"
+          ]
+        }
+      },
+      "returnType": {
+        "name": "Observable",
+        "type": "number",
+        "generic": false
+      },
+      "name": "operator",
+      "operators": [
+        {
+          "parameters": [],
+          "name": "operatorA"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "value",
+          "type": "number"
+        }
+      ]
+    }
+  ]
+}

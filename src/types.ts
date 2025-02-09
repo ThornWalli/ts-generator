@@ -16,6 +16,7 @@ export type OperatorDescription = {
   name: string;
   operators: SubOperatorDescription[];
   parameters: ParameterDescription[];
+  docType: DocTypeDescription | undefined;
 };
 export type SubOperatorDescription = {
   name: string;
@@ -39,3 +40,20 @@ export enum TYPE_DEFINITION {
   Boolean = 'boolean',
   Generic = 'T'
 }
+
+export type DocTypeParamDescription = {
+  name: string;
+  type: string;
+  description: string | undefined;
+};
+export type DocTypeDescription = {
+  description: string | undefined;
+  params: DocTypeParamDescription[];
+  returns:
+    | {
+        name: string;
+        description: string | undefined;
+        type: string[];
+      }
+    | undefined;
+};
