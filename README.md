@@ -5,7 +5,7 @@
 - from TypeScript to JSON
 - from JSON to TypeScript
 
-From JSON:
+**JSON**
 
 ```json
 {
@@ -174,7 +174,7 @@ From JSON:
 }
 ```
 
-to TypeScript:
+**TypeScript**
 
 ```ts
 import { operatorA, operatorB, operatorDummy as operatorC } from "./operators";
