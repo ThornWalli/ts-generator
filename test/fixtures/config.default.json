@@ -1,6 +1,6 @@
 [
   {
-    "name": "test",
+    "name": "foo",
     "operators": [
       {
         "name": "operatorA",
@@ -23,6 +23,20 @@
         "importDeclaration": {
           "local": "operatorC",
           "imported": "operatorC",
+          "path": "./operators"
+        }
+      }
+    ],
+    "parameters": []
+  },
+  {
+    "name": "bar",
+    "operators": [
+      {
+        "name": "operatorA",
+        "importDeclaration": {
+          "local": "operatorA",
+          "imported": "operatorA",
           "path": "./operators"
         }
       }

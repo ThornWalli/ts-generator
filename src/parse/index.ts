@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import * as ts from 'typescript';
 import { getOperators, getImportDeclarations } from './utils.ts';
+import consola from 'consola';
 
 const fileContent = await readFile('test/fixtures/index.ts', 'utf-8');
 
@@ -11,3 +12,5 @@ const result = getOperators(sourceFile, importDeclarations);
 
 await mkdir('.output', { recursive: true });
 await writeFile('.output/config.json', JSON.stringify(result, null, 2));
+
+consola.success('done!');

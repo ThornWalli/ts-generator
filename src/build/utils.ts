@@ -1,6 +1,6 @@
 import ts from 'typescript';
 import { ImportDeclaration, OperatorDescription, ParsedOperatorDescription } from '../type';
-import { groupBy } from '../utils.ts';
+import { groupBy, uniqueBy } from '../utils.ts';
 
 export function getOperators(config: OperatorDescription[]): {
   functions: ts.FunctionDeclaration[];
@@ -22,7 +22,8 @@ export function getOperators(config: OperatorDescription[]): {
     );
 
   // prepare imports
-  const importMapByPath = groupBy(imports, 'path');
+  const importMapByPath = groupBy(uniqueBy(imports, 'local'), 'path', { unique: true });
+
   importMapByPath['rxjs'] = importMapByPath['rxjs'] || [];
   // IMPORTANT: default opertator type import
   importMapByPath['rxjs'].push({

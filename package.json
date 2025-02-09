@@ -37,7 +37,8 @@
     "vitest": "^3.0.5"
   },
   "dependencies": {
-    "typescript": "^5.7.3",
-    "rxjs": "^7.8.1"
+    "consola": "^3.4.0",
+    "rxjs": "^7.8.1",
+    "typescript": "^5.7.3"
   }
 }

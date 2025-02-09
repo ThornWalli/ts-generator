@@ -1,10 +1,24 @@
-export function groupBy<T>(array: T[], key: keyof T): Record<string, T[]> {
+export function groupBy<T>(array: T[], key: keyof T, options: { unique: boolean }): Record<string, T[]> {
   return array.reduce((result: Record<string, T[]>, value) => {
     const keyValue = String(value[key]);
     if (!result[keyValue]) {
       result[keyValue] = [];
     }
-    result[keyValue].push(value);
+    if (!options.unique || (options.unique && !result[keyValue].includes(value))) {
+      result[keyValue].push(value);
+    }
     return result;
   }, {});
+}
+
+export function uniqueBy<T>(array: T[], key: keyof T): T[] {
+  const seen = new Set();
+  return array.filter(item => {
+    const keyValue = item[key];
+    if (seen.has(keyValue)) {
+      return false;
+    }
+    seen.add(keyValue);
+    return true;
+  });
 }
