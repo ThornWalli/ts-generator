@@ -9,7 +9,7 @@ export function getImports(config: Configuration): ts.ImportDeclaration[] {
   return createImportDeclarations(importMapByPath);
 }
 
-export function createImportDeclarations(importMapByPath: Record<string, ImportDeclaration[]>) {
+function createImportDeclarations(importMapByPath: Record<string, ImportDeclaration[]>) {
   return Object.entries(importMapByPath)
     .map(([path, importDeclarations]) => {
       return ts.factory.createImportDeclaration(

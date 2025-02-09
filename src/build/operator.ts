@@ -6,7 +6,7 @@ export function getOperators(config: Configuration): ts.FunctionDeclaration[] {
   return config.operators.map(operatorConfig => createOperator(operatorConfig));
 }
 
-export function createOperator(options: OperatorDescription): ts.FunctionDeclaration {
+function createOperator(options: OperatorDescription): ts.FunctionDeclaration {
   const innerFunction = ts.factory.createArrowFunction(
     [],
     [],
