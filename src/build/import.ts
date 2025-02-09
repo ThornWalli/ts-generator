@@ -1,6 +1,6 @@
 import ts from 'typescript';
-import { groupBy, uniqueBy } from '../../utils.ts';
-import { Configuration, ImportDeclaration } from '../../types.ts';
+import { groupBy, uniqueBy } from '../utils.ts';
+import { Configuration, ImportDeclaration } from '../types.ts';
 
 export function getImports(config: Configuration): ts.ImportDeclaration[] {
   // prepare imports

@@ -1,5 +1,5 @@
-import { DocTypeDescription } from './../../types';
 import ts, { JSDocTag } from 'typescript';
+import { DocTypeDescription } from '../types';
 
 export function addDocType(functionDeclaration: ts.FunctionDeclaration, options: DocTypeDescription) {
   const tags: JSDocTag[] = [

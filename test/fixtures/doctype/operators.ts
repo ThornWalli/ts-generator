@@ -1,5 +1,5 @@
-import { empty } from "../../utils";
+import { emptyOperator } from "../../utils";
 
 export function operatorA() {
-  return empty;
+  return emptyOperator;
 }

@@ -22,3 +22,7 @@ export function uniqueBy<T>(array: T[], key: keyof T): T[] {
     return true;
   });
 }
+
+export function getFixture() {
+  return process.env.npm_config_fixture || 'default';
+}

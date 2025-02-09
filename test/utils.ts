@@ -13,6 +13,6 @@ export async function getFixtureFile(fixture: string) {
   return { filename: basename(filepath), content };
 }
 
-export function empty<T>(source: Observable<T>): Observable<T> {
+export function emptyOperator<T>(source: Observable<T>): Observable<T> {
   return source;
 }

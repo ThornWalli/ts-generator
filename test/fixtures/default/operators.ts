@@ -1,9 +1,9 @@
 import { Observable, tap } from 'rxjs';
 import { Dummy } from './types';
-import { empty } from '../../utils';
+import { emptyOperator } from '../../utils';
 
 export function operatorA() {
-  return empty;
+  return emptyOperator;
 }
 export function operatorB<T>(text: string, numeric: number) {
   return (source:Observable<T>) => source.pipe(tap(() => console.log({ text, numeric })));

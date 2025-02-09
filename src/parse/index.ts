@@ -1,18 +1,15 @@
-import { mkdir, readFile, writeFile } from 'fs/promises';
-import { parse } from './utils/index.ts';
-import consola from 'consola';
-import { join } from 'path';
+import ts from 'typescript';
+import { getImportDeclarations } from './import.ts';
+import { getOperators } from './operator.ts';
 
-const fixture = process.env.npm_config_fixture || 'default';
-const fileContent = await readFile(`test/fixtures/${fixture}/index.ts`, 'utf-8');
+export default function parse(filename: string, content: string) {
+  const sourceFile = ts.createSourceFile(filename, content, ts.ScriptTarget.ESNext, true);
 
-const result = parse('index.ts', fileContent);
+  const imports = getImportDeclarations(sourceFile);
+  const operators = getOperators(sourceFile);
 
-console.debug('imports:', JSON.stringify(result.imports, null, 2));
-console.debug('operators:', JSON.stringify(result.operators, null, 2));
-
-const dist = join('.output', fixture);
-await mkdir(dist, { recursive: true });
-await writeFile(join(dist, 'config.json'), JSON.stringify(result, null, 2));
-
-consola.success('done!');
+  return {
+    imports,
+    operators
+  };
+}

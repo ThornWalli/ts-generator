@@ -5,7 +5,7 @@ import {
   ReturnType,
   SubOperatorDescription,
   TYPE_DEFINITION
-} from '../../types.ts';
+} from '../types.ts';
 import { getDocType } from './doctype.ts';
 
 export function getOperators(sourceFile: ts.SourceFile) {

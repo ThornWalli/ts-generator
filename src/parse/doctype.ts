@@ -1,5 +1,5 @@
 import ts from 'typescript';
-import { DocTypeDescription } from '../../types.ts';
+import { DocTypeDescription } from '../types';
 
 export function getDocType(node: ts.Node) {
   const jsDoc = [...ts.getJSDocCommentsAndTags(node), ...ts.getJSDocTags(node)];

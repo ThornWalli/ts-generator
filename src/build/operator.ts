@@ -1,5 +1,5 @@
 import ts from 'typescript';
-import { Configuration, OperatorDescription } from '../../types.ts';
+import { Configuration, OperatorDescription } from '../types.ts';
 import { addDocType } from './doctype.ts';
 
 export function getOperators(config: Configuration): ts.FunctionDeclaration[] {

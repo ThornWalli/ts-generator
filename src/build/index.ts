@@ -1,18 +1,16 @@
-import { Configuration } from './../types';
-import { mkdir, readFile, writeFile } from 'fs/promises';
-import { build } from './utils/index.ts';
-import consola from 'consola';
-import { join } from 'path';
+import ts from 'typescript';
+import { Configuration } from '../types.ts';
+import { getImports } from './import.ts';
+import { getOperators } from './operator.ts';
 
-const fixture = process.env.npm_config_fixture || 'default';
-const config: Configuration = (await readFile(`test/fixtures/${fixture}/config.json`, 'utf-8').then(
-  JSON.parse
-)) as Configuration;
+export default function build(config: Configuration) {
+  const sourceFile = ts.createSourceFile('index.ts', '', ts.ScriptTarget.ESNext, false, ts.ScriptKind.TS);
 
-const result = build(config);
+  const imports = getImports(config);
+  const functions = getOperators(config);
 
-const dist = join('.output', fixture);
-await mkdir(dist, { recursive: true });
-await writeFile(join(dist, 'index.ts'), result);
+  const updatedSourceFile = ts.factory.updateSourceFile(sourceFile, [...imports, ...functions]);
 
-consola.success('done!');
+  const printer = ts.createPrinter();
+  return printer.printFile(updatedSourceFile);
+}
