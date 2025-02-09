@@ -21,42 +21,6 @@ export function getImportDeclarations(sourceFile: ts.SourceFile) {
       }
     });
 
-    // let importName, localName;
-    // const [imported, local] = importSpecifiers;
-    // const specifiers: { imported: string | undefined; local: string | undefined }[] = [];
-    // if (imported && ts.isImportSpecifier(imported)) {
-    //   importName = imported.name.text;
-    //   importName = imported.propertyName ? imported.propertyName.text : imported.name.text;
-    // }
-    // if (local && ts.isImportSpecifier(local)) {
-    //   localName = local.name.text;
-    //   localName = local.propertyName ? local.propertyName.text : local.name.text;
-    // }
-    // specifiers.push({
-    //   imported: importName,
-    //   local: localName
-    // });
-    // else if() {
-    //   const importName = imported.name.text;
-    //   const localName = local.name.text;
-    //   specifiers.push({
-    //     imported: importName,
-    //     local: localName
-    //   });
-    // }
-
-    // const specifiers: { imported: string; local: string }[] = importSpecifiers.map(importSpecifier => {
-    //   debugger;
-    //   if (ts.isImportEqualsDeclaration(importSpecifier)) {
-    //   } else {
-    //     const imported = importSpecifier.name.text;
-    //     const local = importSpecifier.propertyName ? importSpecifier.propertyName.text : importSpecifier.name.text;
-    //     return {
-    //       imported,
-    //       local
-    //     };
-    //   }
-    // });
     specifiers.forEach(({ imported, local }) => {
       if (imported && local) {
         result.push({
