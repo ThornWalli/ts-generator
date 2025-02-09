@@ -1,0 +1,27 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "presentation": {
+        "hidden": false,
+        "group": "Build",
+        "order": 1
+      },
+      "command": "npm run dev:build",
+      "name": "Debug: dev:build",
+      "request": "launch",
+      "type": "node-terminal"
+    },
+    {
+      "presentation": {
+        "hidden": false,
+        "group": "Parse",
+        "order": 2
+      },
+      "command": "npm run dev:parse",
+      "name": "Debug: dev:parse",
+      "request": "launch",
+      "type": "node-terminal"
+    }
+  ]
+}

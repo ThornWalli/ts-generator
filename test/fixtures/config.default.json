@@ -1,0 +1,32 @@
+[
+  {
+    "name": "test",
+    "operators": [
+      {
+        "name": "operatorA",
+        "importDeclaration": {
+          "local": "operatorA",
+          "imported": "operatorA",
+          "path": "./operators"
+        }
+      },
+      {
+        "name": "operatorB",
+        "importDeclaration": {
+          "local": "operatorB",
+          "imported": "operatorB",
+          "path": "./operators"
+        }
+      },
+      {
+        "name": "operatorC",
+        "importDeclaration": {
+          "local": "operatorC",
+          "imported": "operatorC",
+          "path": "./operators"
+        }
+      }
+    ],
+    "parameters": []
+  }
+]
