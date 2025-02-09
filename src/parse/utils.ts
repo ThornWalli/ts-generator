@@ -1,5 +1,11 @@
 import ts from 'typescript';
-import { ImportDeclaration, OperatorDescription, ParameterDescription, SubOperatorDescription } from '../types';
+import {
+  ImportDeclaration,
+  OperatorDescription,
+  ParameterDescription,
+  SubOperatorDescription,
+  TYPE_DEFINITION
+} from '../types.ts';
 
 export function getImportDeclarations(sourceFile: ts.SourceFile) {
   const importDeclarations = sourceFile.statements.filter(ts.isImportDeclaration);
@@ -79,13 +85,13 @@ export function getPipeArguments(arrowFunction: ts.ArrowFunction): ts.Expression
 const getTypeByKind = (kind: ts.SyntaxKind) => {
   switch (kind) {
     case ts.SyntaxKind.NumberKeyword:
-      return 'number';
+      return TYPE_DEFINITION.Number;
     case ts.SyntaxKind.StringKeyword:
-      return 'string';
+      return TYPE_DEFINITION.String;
     case ts.SyntaxKind.BooleanKeyword:
-      return 'boolean';
+      return TYPE_DEFINITION.Boolean;
     default:
-      return 'T';
+      return TYPE_DEFINITION.Generic;
   }
 };
 

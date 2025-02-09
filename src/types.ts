@@ -33,3 +33,9 @@ export type ParsedOperatorDescription = {
   function: ts.FunctionDeclaration;
   imports: ImportDeclaration[];
 };
+export enum TYPE_DEFINITION {
+  Number = 'number',
+  String = 'string',
+  Boolean = 'boolean',
+  Generic = 'T'
+}
