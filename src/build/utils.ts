@@ -69,11 +69,15 @@ export function createOperator(options: OperatorDescription): ParsedOperatorDesc
         undefined,
         'source',
         undefined,
-        ts.factory.createTypeReferenceNode('Observable', [ts.factory.createTypeReferenceNode('T', [])]),
+        ts.factory.createTypeReferenceNode(options.returnType.name, [
+          ts.factory.createTypeReferenceNode(options.returnType.type, [])
+        ]),
         undefined
       )
     ],
-    ts.factory.createTypeReferenceNode('Observable', [ts.factory.createTypeReferenceNode('T', [])]),
+    ts.factory.createTypeReferenceNode(options.returnType.name, [
+      ts.factory.createTypeReferenceNode(options.returnType.type, [])
+    ]),
     undefined,
     ts.factory.createBlock(
       [
@@ -82,7 +86,10 @@ export function createOperator(options: OperatorDescription): ParsedOperatorDesc
             ts.factory.createPropertyAccessExpression(ts.factory.createIdentifier('source'), 'pipe'),
             [],
             options.operators.map(operator => {
-              return ts.factory.createCallExpression(ts.factory.createIdentifier(operator.name), [], []);
+              const parameters = operator.parameters.map(({ name }) => {
+                return ts.factory.createIdentifier(name);
+              });
+              return ts.factory.createCallExpression(ts.factory.createIdentifier(operator.name), [], parameters);
             })
           )
         )
@@ -93,12 +100,22 @@ export function createOperator(options: OperatorDescription): ParsedOperatorDesc
 
   const block = ts.factory.createBlock([ts.factory.createReturnStatement(innerFunction)], false);
 
+  const parameters = options.parameters.map(({ name, type }) => {
+    return ts.factory.createParameterDeclaration(
+      [],
+      undefined,
+      name,
+      undefined,
+      ts.factory.createTypeReferenceNode(type),
+      undefined
+    );
+  });
   const functionDeclaration = ts.factory.createFunctionDeclaration(
     [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
     undefined,
     options.name,
-    [ts.factory.createTypeParameterDeclaration([], 'T', undefined, undefined)],
-    [],
+    options.returnType.generic ? [ts.factory.createTypeParameterDeclaration([], 'T', undefined, undefined)] : undefined,
+    parameters,
     undefined,
     block
   );

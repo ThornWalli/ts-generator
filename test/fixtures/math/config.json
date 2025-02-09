@@ -1,0 +1,31 @@
+[
+  {
+    "returnType": {
+      "name": "Observable",
+      "type": "number",
+      "generic": false
+    },
+    "name": "simpleAddition",
+    "operators": [
+      {
+        "parameters": [
+          {
+            "name": "value"
+          }
+        ],
+        "name": "add",
+        "importDeclaration": {
+          "local": "add",
+          "imported": "add",
+          "path": "./operators"
+        }
+      }
+    ],
+    "parameters": [
+      {
+        "name": "value",
+        "type": "number"
+      }
+    ]
+  }
+]

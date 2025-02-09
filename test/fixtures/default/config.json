@@ -1,8 +1,14 @@
 [
   {
+    "returnType": {
+      "name": "Observable",
+      "type": "T",
+      "generic": true
+    },
     "name": "foo",
     "operators": [
       {
+        "parameters": [],
         "name": "operatorA",
         "importDeclaration": {
           "local": "operatorA",
@@ -11,6 +17,7 @@
         }
       },
       {
+        "parameters": [],
         "name": "operatorB",
         "importDeclaration": {
           "local": "operatorB",
@@ -22,9 +29,15 @@
     "parameters": []
   },
   {
+    "returnType": {
+      "name": "Observable",
+      "type": "T",
+      "generic": true
+    },
     "name": "bar",
     "operators": [
       {
+        "parameters": [],
         "name": "operatorC",
         "importDeclaration": {
           "local": "operatorC",

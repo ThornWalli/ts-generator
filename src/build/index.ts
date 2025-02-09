@@ -3,8 +3,10 @@ import * as ts from 'typescript';
 import { OperatorDescription } from '../types.ts';
 import { getOperators } from '../build/utils.ts';
 import consola from 'consola';
+import { join } from 'path';
 
-const config: OperatorDescription[] = await readFile('test/fixtures/default/config.json', 'utf-8').then(JSON.parse);
+const fixture = process.env.npm_config_fixture || 'default';
+const config: OperatorDescription[] = await readFile(`test/fixtures/${fixture}/config.json`, 'utf-8').then(JSON.parse);
 
 const sourceFile = ts.createSourceFile('test.ts', '', ts.ScriptTarget.ESNext, false, ts.ScriptKind.TS);
 
@@ -15,7 +17,8 @@ const updatedSourceFile = ts.factory.updateSourceFile(sourceFile, [...imports, .
 const printer = ts.createPrinter();
 const result = printer.printFile(updatedSourceFile);
 
-await mkdir('.output', { recursive: true });
-await writeFile('.output/index.ts', result);
+const dist = join('.output', fixture);
+await mkdir(dist, { recursive: true });
+await writeFile(join(dist, 'index.ts'), result);
 
 consola.success('done!');

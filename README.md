@@ -10,9 +10,15 @@ From JSON:
 ```json
 [
   {
+    "returnType": {
+      "name": "Observable",
+      "type": "T",
+      "generic": true
+    },
     "name": "foo",
     "operators": [
       {
+        "parameters": [],
         "name": "operatorA",
         "importDeclaration": {
           "local": "operatorA",
@@ -21,6 +27,7 @@ From JSON:
         }
       },
       {
+        "parameters": [],
         "name": "operatorB",
         "importDeclaration": {
           "local": "operatorB",
@@ -32,9 +39,15 @@ From JSON:
     "parameters": []
   },
   {
+    "returnType": {
+      "name": "Observable",
+      "type": "T",
+      "generic": true
+    },
     "name": "bar",
     "operators": [
       {
+        "parameters": [],
         "name": "operatorC",
         "importDeclaration": {
           "local": "operatorC",
