@@ -87,7 +87,6 @@ From JSON:
             }
           ],
           "name": "operatorC"
-
         }
       ],
       "parameters": [
@@ -129,7 +128,20 @@ From JSON:
           "name": "operatorC"
         }
       ],
-      "parameters": []
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string"
+        },
+        {
+          "name": "numeric",
+          "type": "number"
+        },
+        {
+          "name": "dummy",
+          "type": "Dummy"
+        }
+      ]
     }
   ]
 }
@@ -143,7 +155,7 @@ import { Observable } from "rxjs";
 import { Dummy } from "./types";
 export function foo<T>(text: string, numeric: number) { return (source: Observable<T>): Observable<T> => { return source.pipe(operatorA(), operatorB(text, numeric)); }; }
 export function bar<T>(dummy: Dummy) { return (source: Observable<T>): Observable<T> => { return source.pipe(operatorC(dummy)); }; }
-export function foobar() { return (source: Observable<number>): Observable<number> => { return source.pipe(operatorA(), operatorB(text, numeric), operatorC(dummy)); }; }
+export function foobar(text: string, numeric: number, dummy: Dummy) { return (source: Observable<number>): Observable<number> => { return source.pipe(operatorA(), operatorB(text, numeric), operatorC(dummy)); }; }
 ```
 
 ## Development

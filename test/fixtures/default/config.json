@@ -77,7 +77,6 @@
             }
           ],
           "name": "operatorC"
-
         }
       ],
       "parameters": [
@@ -119,7 +118,20 @@
           "name": "operatorC"
         }
       ],
-      "parameters": []
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string"
+        },
+        {
+          "name": "numeric",
+          "type": "number"
+        },
+        {
+          "name": "dummy",
+          "type": "Dummy"
+        }
+      ]
     }
   ]
 }
