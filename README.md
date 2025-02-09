@@ -87,6 +87,7 @@ From JSON:
             }
           ],
           "name": "operatorC"
+
         }
       ],
       "parameters": [
@@ -95,6 +96,40 @@ From JSON:
           "type": "Dummy"
         }
       ]
+    },
+    {
+      "returnType": {
+        "name": "Observable",
+        "type": "number",
+        "generic": false
+      },
+      "name": "foobar",
+      "operators": [
+        {
+          "parameters": [],
+          "name": "operatorA"
+        },
+        {
+          "parameters": [
+            {
+              "name": "text"
+            },
+            {
+              "name": "numeric"
+            }
+          ],
+          "name": "operatorB"
+        },
+        {
+          "parameters": [
+            {
+              "name": "dummy"
+            }
+          ],
+          "name": "operatorC"
+        }
+      ],
+      "parameters": []
     }
   ]
 }
@@ -103,20 +138,12 @@ From JSON:
 to TypeScript:
 
 ```ts
-import { operatorA, operatorB, operatorDummy as operatorC } from './operators';
-import { Observable } from 'rxjs';
-import { Dummy } from './types';
-export function foo<T>(text: string, numeric: number) {
-  return (source: Observable<T>): Observable<T> => {
-    return source.pipe(operatorA(), operatorB(text, numeric));
-  };
-}
-export function bar<T>(dummy: Dummy) {
-  return (source: Observable<T>): Observable<T> => {
-    return source.pipe(operatorC(dummy));
-  };
-}
-
+import { operatorA, operatorB, operatorDummy as operatorC } from "./operators";
+import { Observable } from "rxjs";
+import { Dummy } from "./types";
+export function foo<T>(text: string, numeric: number) { return (source: Observable<T>): Observable<T> => { return source.pipe(operatorA(), operatorB(text, numeric)); }; }
+export function bar<T>(dummy: Dummy) { return (source: Observable<T>): Observable<T> => { return source.pipe(operatorC(dummy)); }; }
+export function foobar() { return (source: Observable<number>): Observable<number> => { return source.pipe(operatorA(), operatorB(text, numeric), operatorC(dummy)); }; }
 ```
 
 ## Development
