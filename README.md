@@ -168,7 +168,6 @@ From JSON:
     }
   ]
 }
-
 ```
 
 to TypeScript:
@@ -180,6 +179,7 @@ import { Dummy } from "./types";
 export function foo<T>(text: string, numeric: number) { return (source: Observable<T>): Observable<T> => { return source.pipe(operatorA(), operatorB(text, numeric)); }; }
 export function bar<T>(dummy: Dummy) { return (source: Observable<T>): Observable<T> => { return source.pipe(operatorC(dummy)); }; }
 /**
+ * foobar description
  * @param {string} text
  * @param {number} numeric
  * @param {dummy} dummy
