@@ -19,6 +19,8 @@
   "include": [
     "build/**/*.ts",
     "src/**/*.ts",
+    "test/**/*.ts",
+    "!test/fixtures/**/*.ts",
     "./node_modules/rxjs/**/*.ts"
   ],
   "exclude": [

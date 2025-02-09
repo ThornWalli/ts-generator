@@ -13,6 +13,8 @@ dist-ssr
 *.local
 .history
 .output
+coverage
+
 
 # Editor directories and files
 .vscode/*
