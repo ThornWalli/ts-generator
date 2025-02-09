@@ -4,7 +4,7 @@ import { OperatorDescription } from '../types.ts';
 import { getOperators } from '../build/utils.ts';
 import consola from 'consola';
 
-const config: OperatorDescription[] = await readFile('test/fixtures/config.default.json', 'utf-8').then(JSON.parse);
+const config: OperatorDescription[] = await readFile('test/fixtures/default/config.json', 'utf-8').then(JSON.parse);
 
 const sourceFile = ts.createSourceFile('test.ts', '', ts.ScriptTarget.ESNext, false, ts.ScriptKind.TS);
 
