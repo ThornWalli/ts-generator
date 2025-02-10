@@ -3,9 +3,7 @@ import { groupBy, uniqueBy } from '../utils.ts';
 import { Configuration, ImportDeclaration } from '../types.ts';
 
 export function getImports(config: Configuration): ts.ImportDeclaration[] {
-  // prepare imports
   const importMapByPath = groupBy(uniqueBy(config.imports, 'alias'), 'path', { unique: true });
-
   return createImportDeclarations(importMapByPath);
 }
 
