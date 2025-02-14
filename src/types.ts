@@ -5,15 +5,17 @@ export type Configuration = {
   operators: OperatorDescription[];
 };
 
+export type TYPE_DEFINITION = TYPE_DEFINITIONS | string;
+
 export type ReturnType = {
-  type: TYPE_DEFINITION | string;
+  type: TYPE_DEFINITION[];
   name: string;
   generic: boolean;
 };
 
 export type OperatorDescription = {
   returnType: ReturnType;
-  name: string;
+  name: string | undefined;
   operators: SubOperatorDescription[];
   parameters: ParameterDescription[];
   docType: DocTypeDescription | undefined;
@@ -34,11 +36,12 @@ export type ParsedOperatorDescription = {
   function: ts.FunctionDeclaration;
   imports: ImportDeclaration[];
 };
-export enum TYPE_DEFINITION {
+export enum TYPE_DEFINITIONS {
   Number = 'number',
   String = 'string',
   Boolean = 'boolean',
-  Generic = 'T'
+  Generic = 'T',
+  Any = 'any'
 }
 
 export type DocTypeParamDescription = {

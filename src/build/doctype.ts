@@ -20,7 +20,6 @@ export function addDocType(functionDeclaration: ts.FunctionDeclaration, options:
     tags.push(
       ts.factory.createJSDocReturnTag(
         undefined,
-
         ts.factory.createJSDocTypeExpression(
           ts.factory.createTypeReferenceNode(
             ts.factory.createIdentifier(options.returns.name),

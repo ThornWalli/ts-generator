@@ -9,21 +9,23 @@ export function getImports(config: Configuration): ts.ImportDeclaration[] {
 
 function createImportDeclarations(importMapByPath: Record<string, ImportDeclaration[]>) {
   return Object.entries(importMapByPath)
-    .map(([path, importDeclarations]) => {
-      return ts.factory.createImportDeclaration(
-        undefined,
-        ts.factory.createImportClause(
-          false,
-          undefined,
-          ts.factory.createNamedImports(
-            importDeclarations.map(({ alias, name }) => {
-              const propertyName = alias === name ? undefined : ts.factory.createIdentifier(name);
-              return ts.factory.createImportSpecifier(false, propertyName, ts.factory.createIdentifier(alias));
-            })
-          )
-        ),
-        ts.factory.createStringLiteral(path)
-      );
-    })
+    .map(([path, importDeclarations]) => createImportDeclaration(path, importDeclarations))
     .flat();
+}
+
+function createImportDeclaration(path: string, importDeclarations: ImportDeclaration[]) {
+  return ts.factory.createImportDeclaration(
+    undefined,
+    ts.factory.createImportClause(false, undefined, createNamedImports(importDeclarations)),
+    ts.factory.createStringLiteral(path)
+  );
+}
+
+function createNamedImports(importDeclarations: ImportDeclaration[]) {
+  return ts.factory.createNamedImports(
+    importDeclarations.map(({ alias, name }) => {
+      const propertyName = alias === name ? undefined : ts.factory.createIdentifier(name);
+      return ts.factory.createImportSpecifier(false, propertyName, ts.factory.createIdentifier(alias));
+    })
+  );
 }

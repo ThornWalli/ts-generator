@@ -13,15 +13,26 @@
     }
   ],
   "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "files": [
+    "dist"
+  ],
   "scripts": {
+    "prepack": "unbuild",
     "prepare": "husky",
     "lint": "npm run lint:es",
     "lint:es": "eslint .",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:dev": "vitest dev",
-    "dev:build": "tsx watch src/build.ts",
-    "dev:parse": "tsx watch src/parse.ts"
+    "dev:build": "tsx watch script/build.ts",
+    "dev:parse": "tsx watch script/parse.ts"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "19.6.0",
@@ -39,6 +50,7 @@
     "ts-node": "^10.9.2",
     "tsx": "^4.19.2",
     "typescript-eslint": "^8.22.0",
+    "unbuild": "^3.3.1",
     "vitest": "^3.0.5"
   },
   "dependencies": {

@@ -15,18 +15,20 @@
     {
       "returnType": {
         "name": "Observable",
-        "type": "number",
+        "type": [
+          "number"
+        ],
         "generic": false
       },
       "name": "simpleAddition",
       "operators": [
         {
+          "name": "add",
           "parameters": [
             {
               "name": "value"
             }
-          ],
-          "name": "add"
+          ]
         }
       ],
       "parameters": [

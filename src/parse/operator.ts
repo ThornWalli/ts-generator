@@ -4,55 +4,76 @@ import {
   ParameterDescription,
   ReturnType,
   SubOperatorDescription,
-  TYPE_DEFINITION
+  TYPE_DEFINITIONS
 } from '../types.ts';
 import { getDocType } from './doctype.ts';
 
 export function getOperators(sourceFile: ts.SourceFile) {
   const functionDeclarations = sourceFile.statements.filter(ts.isFunctionDeclaration);
   return functionDeclarations.reduce((result: OperatorDescription[], functionDeclaration) => {
-    if (functionDeclaration.name) {
-      const operatorName = functionDeclaration.name.text;
-      const operators: SubOperatorDescription[] = [];
-
-      let returnType = getDefaultReturnType();
+    const name = functionDeclaration.name?.text;
+    if (name) {
       const parameters = getFunctionParameters(functionDeclaration);
       if (functionDeclaration.body) {
-        const returnStatement = functionDeclaration.body.statements.find(ts.isReturnStatement);
-        if (returnStatement && returnStatement.expression && ts.isArrowFunction(returnStatement.expression)) {
-          const arrowFunction = returnStatement.expression;
-          const [sourceParameter] = arrowFunction.parameters;
-          if (ts.isParameter(sourceParameter)) {
-            if (sourceParameter.type && ts.isTypeReferenceNode(sourceParameter.type)) {
-              const name = sourceParameter.type.typeName.getText();
-              const [typeArgument] = sourceParameter.type.typeArguments || [];
-              const type = getTypeByKind(typeArgument?.kind || ts.SyntaxKind.AnyKeyword);
-              returnType = { name, type, generic: type === 'T' };
-            }
-          }
-          const pipeArguments: ts.Expression[] = getPipeArguments(arrowFunction);
-          operators.push(...getSubOperators(pipeArguments));
+        const innerFunction = getInnerFunction(functionDeclaration.body);
+        if (innerFunction) {
+          const { returnType, operators } = parseInnerFunction(innerFunction);
+
+          const docType = getDocType(functionDeclaration);
+
+          result.push({
+            docType,
+            returnType,
+            name,
+            operators,
+            parameters
+          });
+          return result;
         }
       }
-
-      const docType = getDocType(functionDeclaration);
-
-      result.push({
-        docType,
-        returnType,
-        name: operatorName,
-        operators,
-        parameters
-      });
+      console.log(`Function ${name} has no body`);
+    } else {
+      console.log('Function has no name');
     }
     return result;
   }, []);
 }
 
+function parseInnerFunction(arrowFunction: ts.ArrowFunction): {
+  returnType: ReturnType;
+  operators: SubOperatorDescription[];
+} {
+  let returnType = getDefaultReturnType();
+  const [sourceParameter] = arrowFunction.parameters;
+  if (ts.isParameter(sourceParameter) && sourceParameter.type && ts.isTypeReferenceNode(sourceParameter.type)) {
+    const name = sourceParameter.type.typeName.getText();
+    const type = getTypeDefinitions(sourceParameter.type.typeArguments);
+    returnType = { name, type, generic: type[0] === 'T' };
+  }
+  const pipeArguments: ts.Expression[] = getPipeArguments(arrowFunction);
+  return { returnType, operators: getSubOperators(pipeArguments) };
+}
+
+function getInnerFunction(body: ts.Block): ts.ArrowFunction | undefined {
+  const returnStatement = body.statements.find(ts.isReturnStatement);
+  if (returnStatement && returnStatement.expression && ts.isArrowFunction(returnStatement.expression)) {
+    return returnStatement.expression;
+  }
+  return undefined;
+}
+
+function getTypeDefinitions(typeArguments: ts.NodeArray<ts.TypeNode> | undefined) {
+  return (
+    (typeArguments || []).map(typeArgument => {
+      return getTypeByKind(typeArgument?.kind || ts.SyntaxKind.AnyKeyword);
+    }) || []
+  );
+}
+
 function getDefaultReturnType(): ReturnType {
   return {
-    type: TYPE_DEFINITION.Generic,
-    name: 'T',
+    type: [TYPE_DEFINITIONS.Generic],
+    name: TYPE_DEFINITIONS.Generic,
     generic: true
   };
 }
@@ -60,44 +81,44 @@ function getDefaultReturnType(): ReturnType {
 const getFunctionParameters = (functionDeclaration: ts.FunctionDeclaration) => {
   const parameters = functionDeclaration.parameters.map(parameter => {
     const name = parameter.name.getText();
-    const type = parameter.type ? parameter.type.getText() : 'any';
+    const type = parameter.type ? parameter.type.getText() : TYPE_DEFINITIONS.Any;
     return { name, type };
   });
 
   return parameters;
 };
 
-const getSubOperators = (pipeArguments: ts.Expression[]) => {
+function getSubOperators(pipeArguments: ts.Expression[]) {
   return pipeArguments.reduce((result, expression) => {
     if (ts.isCallExpression(expression)) {
       expression.arguments.forEach(argument => {
         if (ts.isCallExpression(argument) && ts.isIdentifier(argument.expression)) {
           const identifier = argument.expression;
-          const parameters = argument.arguments.map(arg => {
-            return { name: arg.getText() };
-          }) as ParameterDescription[];
-
           result.push({
-            parameters,
-            name: identifier.getText()
+            name: identifier.getText(),
+            parameters: getParameterDescriptions(argument.arguments)
           });
         }
       });
     }
     return result;
   }, [] as SubOperatorDescription[]);
-};
+}
+
+function getParameterDescriptions(values: ts.NodeArray<ts.Expression>) {
+  return values.map(arg => ({ name: arg.getText() })) as ParameterDescription[];
+}
 
 const getTypeByKind = (kind: ts.SyntaxKind) => {
   switch (kind) {
     case ts.SyntaxKind.NumberKeyword:
-      return TYPE_DEFINITION.Number;
+      return TYPE_DEFINITIONS.Number;
     case ts.SyntaxKind.StringKeyword:
-      return TYPE_DEFINITION.String;
+      return TYPE_DEFINITIONS.String;
     case ts.SyntaxKind.BooleanKeyword:
-      return TYPE_DEFINITION.Boolean;
+      return TYPE_DEFINITIONS.Boolean;
     default:
-      return TYPE_DEFINITION.Generic;
+      return TYPE_DEFINITIONS.Generic;
   }
 };
 

@@ -1,5 +1,5 @@
 import ts from 'typescript';
-import { DocTypeDescription } from '../types';
+import { DocTypeDescription, TYPE_DEFINITIONS } from '../types';
 
 export function getDocType(node: ts.Node) {
   const jsDoc = [...ts.getJSDocCommentsAndTags(node), ...ts.getJSDocTags(node)];
@@ -11,7 +11,6 @@ export function getDocType(node: ts.Node) {
       if (ts.isJSDocReturnTag(entry)) {
         if (entry.typeExpression && ts.isTypeReferenceNode(entry.typeExpression.type)) {
           const typeReferenceType = entry.typeExpression.type;
-          console.log(typeReferenceType.typeName);
           if (ts.isIdentifier(typeReferenceType.typeName)) {
             const identifier = typeReferenceType.typeName;
             const type = (typeReferenceType.typeArguments || []).map(arg => arg.getText());
@@ -26,7 +25,7 @@ export function getDocType(node: ts.Node) {
       } else if (ts.isJSDocParameterTag(entry)) {
         result.params.push({
           name: entry.name.getText(),
-          type: entry.typeExpression?.type.getText() || 'any',
+          type: entry.typeExpression?.type.getText() || TYPE_DEFINITIONS.Any,
           description: ts.getTextOfJSDocComment(entry.comment)
         });
       } else if (ts.isJSDocCommentContainingNode(entry)) {

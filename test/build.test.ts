@@ -9,7 +9,7 @@ describe('build', () => {
 });
 
 async function compare(fixture: string) {
-  const { content } = await getFixtureFile(fixture);
+  const { data } = await getFixtureFile(fixture);
   const config = await getFixtureConfig(fixture);
-  expect(build(config)).toEqual(content);
+  expect(build(config)).toEqual(data);
 }

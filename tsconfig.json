@@ -21,11 +21,12 @@
     "src/**/*.ts",
     "test/**/*.ts",
     "!test/fixtures/**/*.ts",
-    "./node_modules/rxjs/**/*.ts"
+    "./node_modules/rxjs/**/*.ts",
+    "script/parse.ts",
+    "script/build.ts"
   ],
   "exclude": [
     "node_modules",
     "**/*.spec.ts"
   ]
 }
-

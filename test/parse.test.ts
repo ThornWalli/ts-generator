@@ -9,7 +9,7 @@ describe('parse', () => {
 });
 
 async function compare(fixture: string) {
-  const { filename, content } = await getFixtureFile(fixture);
+  const { filename, data } = await getFixtureFile(fixture);
   const config = await getFixtureConfig(fixture);
-  expect(parse(filename, content)).toEqual(config);
+  expect(parse(filename, data)).toEqual(config);
 }

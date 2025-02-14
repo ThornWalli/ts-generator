@@ -32,14 +32,16 @@
       },
       "returnType": {
         "name": "Observable",
-        "type": "number",
+        "type": [
+          "number"
+        ],
         "generic": false
       },
       "name": "operator",
       "operators": [
         {
-          "parameters": [],
-          "name": "operatorA"
+          "name": "operatorA",
+          "parameters": []
         }
       ],
       "parameters": [
