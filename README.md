@@ -40,16 +40,19 @@
     {
       "returnType": {
         "name": "Observable",
-        "type": "T",
+        "type": [
+          "T"
+        ],
         "generic": true
       },
       "name": "foo",
       "operators": [
         {
-          "parameters": [],
-          "name": "operatorA"
+          "name": "operatorA",
+          "parameters": []
         },
         {
+          "name": "operatorB",
           "parameters": [
             {
               "name": "text"
@@ -57,8 +60,7 @@
             {
               "name": "numeric"
             }
-          ],
-          "name": "operatorB"
+          ]
         }
       ],
       "parameters": [
@@ -75,18 +77,20 @@
     {
       "returnType": {
         "name": "Observable",
-        "type": "T",
+        "type": [
+          "T"
+        ],
         "generic": true
       },
       "name": "bar",
       "operators": [
         {
+          "name": "operatorC",
           "parameters": [
             {
               "name": "dummy"
             }
-          ],
-          "name": "operatorC"
+          ]
         }
       ],
       "parameters": [
@@ -126,16 +130,19 @@
       },
       "returnType": {
         "name": "Observable",
-        "type": "number",
+        "type": [
+          "number"
+        ],
         "generic": false
       },
       "name": "foobar",
       "operators": [
         {
-          "parameters": [],
-          "name": "operatorA"
+          "name": "operatorA",
+          "parameters": []
         },
         {
+          "name": "operatorB",
           "parameters": [
             {
               "name": "text"
@@ -143,16 +150,15 @@
             {
               "name": "numeric"
             }
-          ],
-          "name": "operatorB"
+          ]
         },
         {
+          "name": "operatorC",
           "parameters": [
             {
               "name": "dummy"
             }
-          ],
-          "name": "operatorC"
+          ]
         }
       ],
       "parameters": [
