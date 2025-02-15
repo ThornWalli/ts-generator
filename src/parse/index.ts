@@ -1,6 +1,6 @@
 import ts from 'typescript';
-import { getImportDeclarations } from './import.ts';
-import { getOperators } from './operator.ts';
+import { getImportDeclarations } from './import';
+import { getOperators } from './operator';
 
 export default function parse(filename: string, content: string) {
   const sourceFile = ts.createSourceFile(filename, content, ts.ScriptTarget.ESNext, true);

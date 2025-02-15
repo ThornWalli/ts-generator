@@ -7,8 +7,8 @@ import {
   SubOperatorDescription,
   TYPE_DEFINITION,
   TYPE_DEFINITIONS
-} from '../types.ts';
-import { addDocType } from './doctype.ts';
+} from '../types';
+import { addDocType } from './doctype';
 
 const IDENTIFIER_SOURCE = 'source';
 const FUNCTION_PIPE = 'pipe';

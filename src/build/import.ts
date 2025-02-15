@@ -1,6 +1,6 @@
 import ts from 'typescript';
-import { groupBy, uniqueBy } from '../utils.ts';
-import { Configuration, ImportDeclaration } from '../types.ts';
+import { groupBy, uniqueBy } from '../utils';
+import { Configuration, ImportDeclaration } from '../types';
 
 export function getImports(config: Configuration): ts.ImportDeclaration[] {
   const importMapByPath = groupBy(uniqueBy(config.imports, 'alias'), 'path', { unique: true });

@@ -2,9 +2,9 @@ import consola from 'consola';
 import { join } from 'path';
 import { config as dotEnvConfig } from 'dotenv';
 
-import parse from '../src/parse/index.ts';
-import { getFixture } from '../src/utils.ts';
-import { getFixtureFile, writeOutputFile } from '../test/utils.ts';
+import parse from '../src/parse/index';
+import { getFixture } from '../src/utils';
+import { getFixtureFile, writeOutputFile } from '../test/utils';
 
 dotEnvConfig();
 

@@ -5,8 +5,8 @@ import {
   ReturnType,
   SubOperatorDescription,
   TYPE_DEFINITIONS
-} from '../types.ts';
-import { getDocType } from './doctype.ts';
+} from '../types';
+import { getDocType } from './doctype';
 
 export function getOperators(sourceFile: ts.SourceFile) {
   const functionDeclarations = sourceFile.statements.filter(ts.isFunctionDeclaration);
