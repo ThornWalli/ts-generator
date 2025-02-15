@@ -56,14 +56,14 @@ function parseInnerFunction(arrowFunction: ts.ArrowFunction): {
   let returnType = undefined;
   if (arrowFunction.type && ts.isTypeReferenceNode(arrowFunction.type)) {
     const name = arrowFunction.type.typeName.getText();
-    returnType = { name, type: getTypeDefinitions(arrowFunction.type.typeArguments) };
+    returnType = { name, typeParameters: getTypeDefinitions(arrowFunction.type.typeArguments) };
   }
 
   let parameterType = undefined;
   const [parameterSource] = arrowFunction.parameters;
   if (ts.isParameter(parameterSource) && parameterSource.type && ts.isTypeReferenceNode(parameterSource.type)) {
     const name = parameterSource.type.typeName.getText();
-    parameterType = { name, type: getTypeDefinitions(parameterSource.type.typeArguments) };
+    parameterType = { name, typeParameters: getTypeDefinitions(parameterSource.type.typeArguments) };
   }
 
   const pipeArguments: ts.Expression[] = getPipeArguments(arrowFunction);
@@ -83,11 +83,9 @@ function getInnerFunction(body: ts.Block): ts.ArrowFunction | undefined {
 }
 
 function getTypeDefinitions(typeArguments: ts.NodeArray<ts.TypeNode> | undefined) {
-  return (
-    (typeArguments || []).map(typeArgument => {
-      return getTypeByArgument(typeArgument);
-    }) || []
-  );
+  return typeArguments?.map(typeArgument => {
+    return getTypeByArgument(typeArgument);
+  });
 }
 
 const getFunctionParameters = (functionDeclaration: ts.FunctionDeclaration) => {
@@ -131,19 +129,19 @@ function getParameterDescriptions(values: ts.NodeArray<ts.Expression>) {
 function getTypeByArgument(typeArgument: ts.TypeReferenceNode | ts.TypeNode): TypeDescription {
   switch (typeArgument.kind as ts.SyntaxKind) {
     case ts.SyntaxKind.NumberKeyword:
-      return { name: TYPE_DEFINITIONS.Number, type: [] } as TypeDescription;
+      return { name: TYPE_DEFINITIONS.Number } as TypeDescription;
     case ts.SyntaxKind.StringKeyword:
-      return { name: TYPE_DEFINITIONS.String, type: [] } as TypeDescription;
+      return { name: TYPE_DEFINITIONS.String } as TypeDescription;
     case ts.SyntaxKind.BooleanKeyword:
-      return { name: TYPE_DEFINITIONS.Boolean, type: [] } as TypeDescription;
+      return { name: TYPE_DEFINITIONS.Boolean } as TypeDescription;
     default:
       if (ts.isTypeReferenceNode(typeArgument)) {
         return {
           name: typeArgument.typeName.getText(),
-          type: getTypeDefinitions(typeArgument.typeArguments)
+          typeParameters: getTypeDefinitions(typeArgument.typeArguments)
         };
       } else {
-        return { name: TYPE_DEFINITIONS.Generic, type: [] } as TypeDescription;
+        return { name: TYPE_DEFINITIONS.Generic } as TypeDescription;
       }
   }
 }

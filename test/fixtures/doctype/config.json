@@ -15,19 +15,17 @@
     {
       "returnType": {
         "name": "Observable",
-        "type": [
+        "typeParameters": [
           {
-            "name": "number",
-            "type": []
+            "name": "number"
           }
         ]
       },
       "parameterType": {
         "name": "Observable",
-        "type": [
+        "typeParameters": [
           {
-            "name": "number",
-            "type": []
+            "name": "number"
           }
         ]
       },

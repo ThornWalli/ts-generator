@@ -28,14 +28,17 @@ function createOperator(options: OperatorDescription): ts.FunctionDeclaration {
         (options.parameterType &&
           ts.factory.createTypeReferenceNode(
             options.parameterType.name,
-            createTypeReferenceNodes(options.parameterType.type)
+            createTypeReferenceNodes(options.parameterType.typeParameters)
           )) ||
           undefined,
         undefined
       )
     ],
     (options.returnType &&
-      ts.factory.createTypeReferenceNode(options.returnType.name, createTypeReferenceNodes(options.returnType.type))) ||
+      ts.factory.createTypeReferenceNode(
+        options.returnType.name,
+        createTypeReferenceNodes(options.returnType.typeParameters)
+      )) ||
       undefined,
     undefined,
     ts.factory.createBlock([ts.factory.createReturnStatement(createPipeCall(options.operators))], false)
@@ -151,6 +154,8 @@ const resolveBody = ({ block, content }: { block: boolean; content: string[] }):
   return ts.factory.createIdentifier(content.join('; ') || '');
 };
 
-function createTypeReferenceNodes(type: TypeDescription[]): ts.TypeReferenceNode[] {
-  return type.map(type => ts.factory.createTypeReferenceNode(type.name, createTypeReferenceNodes(type.type || [])));
+function createTypeReferenceNodes(type: TypeDescription[] | undefined): ts.TypeReferenceNode[] | undefined {
+  return type?.map(type =>
+    ts.factory.createTypeReferenceNode(type.name, createTypeReferenceNodes(type.typeParameters || []))
+  );
 }

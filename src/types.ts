@@ -7,18 +7,18 @@ export type Configuration = {
 
 export type TypeDescription = {
   name: TYPE_DEFINITION;
-  type: TypeDescription[] | undefined;
+  typeParameters: TypeDescription[] | undefined;
 };
 
 export type TYPE_DEFINITION = TYPE_DEFINITIONS | string;
 
 export type OperatorType = {
   name: string;
-  type: TypeDescription[];
+  typeParameters: TypeDescription[] | undefined;
 };
 export type OperatorParameter = {
   name: string;
-  type: TypeDescription[];
+  typeParameters: TypeDescription[] | undefined;
 };
 
 export type OperatorDescription = {
