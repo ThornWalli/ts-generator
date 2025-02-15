@@ -13,6 +13,23 @@
   ],
   "operators": [
     {
+      "docType": {
+        "description": "Simple addition",
+        "params": [
+          {
+            "name": "value",
+            "type": "number",
+            "description": "Value to add"
+          }
+        ],
+        "returns": {
+          "name": "Observable",
+          "description": "Return Value",
+          "type": [
+            "number"
+          ]
+        }
+      },
       "returnType": {
         "name": "Observable",
         "type": [
@@ -26,12 +43,16 @@
           "name": "add",
           "parameters": [
             {
+              "threeDots": false,
               "arrowFunction": false,
+              "type": [],
               "parameters": [
                 {
+                  "arrowFunction": false,
                   "name": "value",
                   "threeDots": false,
-                  "type": []
+                  "type": [],
+                  "parameters": []
                 }
               ]
             }
@@ -40,8 +61,13 @@
       ],
       "parameters": [
         {
+          "arrowFunction": false,
+          "threeDots": false,
           "name": "value",
-          "type": "number"
+          "type": [
+            "number"
+          ],
+          "parameters": []
         }
       ]
     }

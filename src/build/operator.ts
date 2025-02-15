@@ -60,7 +60,7 @@ function createParameterDeclarations(parameters: ParameterDescription[]): ts.Par
       undefined,
       name as string,
       undefined,
-      ts.factory.createTypeReferenceNode(type as string, []),
+      ts.factory.createTypeReferenceNode(type[0] as string, []),
       undefined
     )
   );
@@ -91,7 +91,7 @@ function createPipeCall(operators: SubOperatorDescription[]): ts.CallExpression 
             return ts.factory.createParameterDeclaration(
               [],
               threeDots ? ts.factory.createToken(ts.SyntaxKind.DotDotDotToken) : undefined,
-              name,
+              name as string,
               undefined,
               preparedType,
               undefined
@@ -104,7 +104,7 @@ function createPipeCall(operators: SubOperatorDescription[]): ts.CallExpression 
               [],
               [],
               parameterDeclarations,
-              (type && ts.factory.createTypeReferenceNode(type, [])) || undefined,
+              prepareTypes(type),
               undefined,
               body && (resolveBody(body) as ts.Block)
             );
@@ -115,7 +115,7 @@ function createPipeCall(operators: SubOperatorDescription[]): ts.CallExpression 
               undefined,
               undefined,
               parameterDeclarations,
-              (type && ts.factory.createTypeReferenceNode(type, [])) || undefined,
+              prepareTypes(type),
               body && (resolveBody(body) as ts.Block)
             );
           }
@@ -124,6 +124,15 @@ function createPipeCall(operators: SubOperatorDescription[]): ts.CallExpression 
       return ts.factory.createCallExpression(ts.factory.createIdentifier(operator.name), [], parameters);
     })
   );
+}
+
+function prepareTypes(type: string[]): ts.TypeNode | undefined {
+  if (type.length > 1) {
+    return ts.factory.createTupleTypeNode(type.map(type => ts.factory.createTypeReferenceNode(type, [])));
+  } else if (type.length > 0) {
+    return ts.factory.createTypeReferenceNode(type[0], []);
+  }
+  return undefined;
 }
 
 const resolveBody = ({ block, content }: { block: boolean; content: string[] }): ts.Block | ts.Identifier => {

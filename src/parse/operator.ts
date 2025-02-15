@@ -79,7 +79,14 @@ const getFunctionParameters = (functionDeclaration: ts.FunctionDeclaration) => {
   const parameters = functionDeclaration.parameters.map(parameter => {
     const name = parameter.name.getText();
     const type = parameter.type ? parameter.type.getText() : TYPE_DEFINITIONS.Any;
-    return { name, type };
+    return {
+      arrowFunction: false,
+      threeDots: (parameter.dotDotDotToken && isDotDotDotToken(parameter.dotDotDotToken)) || false,
+      name,
+      type: [type],
+      parameters: [],
+      body: undefined
+    };
   }) as ParameterDescription[];
 
   return parameters;
@@ -130,10 +137,19 @@ function getPipeArguments(arrowFunction: ts.ArrowFunction): ts.Expression[] {
 }
 
 function parseFunction(functionExpression: ts.ArrowFunction | ts.FunctionExpression): ParameterDescription {
-  let parameters: { threeDots: boolean; name: string; type: string[] }[] = [];
+  let parameters: ParameterDescription[] = [];
   let body = undefined;
   if (ts.isIdentifier(functionExpression)) {
-    parameters = [{ name: (functionExpression as ts.Identifier).getText(), threeDots: false, type: [] }];
+    parameters = [
+      {
+        arrowFunction: false,
+        name: (functionExpression as ts.Identifier).getText(),
+        threeDots: false,
+        type: [],
+        parameters: [],
+        body: undefined
+      }
+    ];
   } else if (ts.isArrowFunction(functionExpression) || ts.isFunctionExpression(functionExpression)) {
     parameters = (functionExpression.parameters || [])
       .filter(parameter => ts.isParameter(parameter))
@@ -146,15 +162,14 @@ function parseFunction(functionExpression: ts.ArrowFunction | ts.FunctionExpress
         }
 
         return {
+          arrowFunction: false,
           threeDots: (parameter.dotDotDotToken && isDotDotDotToken(parameter.dotDotDotToken)) || false,
           name: parameter.name.getText(),
-          type: types.map(type => (type as ts.TypeNode).getText())
+          type: types.map(type => (type as ts.TypeNode).getText()),
+          parameters: [],
+          body: undefined
         };
-      }) as {
-      threeDots: boolean;
-      name: string;
-      type: string[];
-    }[];
+      }) as ParameterDescription[];
 
     if (
       functionExpression.body &&
@@ -180,8 +195,10 @@ function parseFunction(functionExpression: ts.ArrowFunction | ts.FunctionExpress
     }
   }
   const parameterDescription = {
+    threeDots: false,
+    name: undefined,
     arrowFunction: ts.isArrowFunction(functionExpression),
-    type: functionExpression.type?.getText(),
+    type: [functionExpression.type?.getText()].filter(Boolean),
     parameters,
     body
   } as ParameterDescription;

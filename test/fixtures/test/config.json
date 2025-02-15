@@ -41,14 +41,20 @@
           "name": "map",
           "parameters": [
             {
+              "threeDots": false,
               "arrowFunction": true,
+              "type": [
+                "number"
+              ],
               "parameters": [
                 {
+                  "arrowFunction": false,
                   "threeDots": false,
                   "name": "value",
                   "type": [
                     "number"
-                  ]
+                  ],
+                  "parameters": []
                 }
               ],
               "body": {
@@ -56,8 +62,7 @@
                 "content": [
                   "value + 1"
                 ]
-              },
-              "type": "number"
+              }
             }
           ]
         },
@@ -65,14 +70,20 @@
           "name": "map",
           "parameters": [
             {
+              "threeDots": false,
               "arrowFunction": true,
+              "type": [
+                "number"
+              ],
               "parameters": [
                 {
+                  "arrowFunction": false,
                   "threeDots": false,
                   "name": "value",
                   "type": [
                     "number"
-                  ]
+                  ],
+                  "parameters": []
                 }
               ],
               "body": {
@@ -80,8 +91,7 @@
                 "content": [
                   "return value + 1"
                 ]
-              },
-              "type": "number"
+              }
             }
           ]
         },
@@ -89,14 +99,20 @@
           "name": "map",
           "parameters": [
             {
+              "threeDots": false,
               "arrowFunction": false,
+              "type": [
+                "number"
+              ],
               "parameters": [
                 {
+                  "arrowFunction": false,
                   "threeDots": false,
                   "name": "value",
                   "type": [
                     "number"
-                  ]
+                  ],
+                  "parameters": []
                 }
               ],
               "body": {
@@ -104,8 +120,7 @@
                 "content": [
                   "return value + 1"
                 ]
-              },
-              "type": "number"
+              }
             }
           ]
         }
@@ -126,14 +141,20 @@
           "name": "map",
           "parameters": [
             {
+              "threeDots": false,
               "arrowFunction": true,
+              "type": [
+                "number"
+              ],
               "parameters": [
                 {
+                  "arrowFunction": false,
                   "threeDots": false,
                   "name": "value",
                   "type": [
                     "number"
-                  ]
+                  ],
+                  "parameters": []
                 }
               ],
               "body": {
@@ -142,8 +163,7 @@
                   "value = Math.pow(value, 2)",
                   "return value + 1"
                 ]
-              },
-              "type": "number"
+              }
             }
           ]
         }
@@ -164,15 +184,21 @@
           "name": "map",
           "parameters": [
             {
+              "threeDots": false,
               "arrowFunction": true,
+              "type": [
+                "number"
+              ],
               "parameters": [
                 {
+                  "arrowFunction": false,
                   "threeDots": true,
                   "name": "list",
                   "type": [
                     "number",
                     "number"
-                  ]
+                  ],
+                  "parameters": []
                 }
               ],
               "body": {
@@ -180,8 +206,7 @@
                 "content": [
                   "return list[0]"
                 ]
-              },
-              "type": "number"
+              }
             }
           ]
         }
@@ -206,22 +231,30 @@
           "name": "operatorB",
           "parameters": [
             {
+              "threeDots": false,
               "arrowFunction": false,
+              "type": [],
               "parameters": [
                 {
+                  "arrowFunction": false,
                   "name": "text",
                   "threeDots": false,
-                  "type": []
+                  "type": [],
+                  "parameters": []
                 }
               ]
             },
             {
+              "threeDots": false,
               "arrowFunction": false,
+              "type": [],
               "parameters": [
                 {
+                  "arrowFunction": false,
                   "name": "numeric",
                   "threeDots": false,
-                  "type": []
+                  "type": [],
+                  "parameters": []
                 }
               ]
             }
@@ -230,12 +263,22 @@
       ],
       "parameters": [
         {
+          "arrowFunction": false,
+          "threeDots": false,
           "name": "text",
-          "type": "string"
+          "type": [
+            "string"
+          ],
+          "parameters": []
         },
         {
+          "arrowFunction": false,
+          "threeDots": false,
           "name": "numeric",
-          "type": "number"
+          "type": [
+            "number"
+          ],
+          "parameters": []
         }
       ]
     }

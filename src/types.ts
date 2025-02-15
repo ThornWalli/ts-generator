@@ -25,10 +25,11 @@ export type SubOperatorDescription = {
   parameters: ParameterDescription[];
 };
 export type ParameterDescription = {
+  threeDots: boolean;
   arrowFunction: boolean;
   name: string | undefined;
-  type: string | undefined;
-  parameters: { threeDots: boolean; name: string; type: string[] }[];
+  type: string[];
+  parameters: ParameterDescription[];
   body:
     | {
         block: boolean;

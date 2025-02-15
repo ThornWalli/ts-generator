@@ -46,8 +46,13 @@
       ],
       "parameters": [
         {
+          "arrowFunction": false,
+          "threeDots": false,
           "name": "value",
-          "type": "number"
+          "type": [
+            "number"
+          ],
+          "parameters": []
         }
       ]
     }

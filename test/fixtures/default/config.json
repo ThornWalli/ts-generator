@@ -50,22 +50,30 @@
           "name": "operatorB",
           "parameters": [
             {
+              "threeDots": false,
               "arrowFunction": false,
+              "type": [],
               "parameters": [
                 {
+                  "arrowFunction": false,
                   "name": "text",
                   "threeDots": false,
-                  "type": []
+                  "type": [],
+                  "parameters": []
                 }
               ]
             },
             {
+              "threeDots": false,
               "arrowFunction": false,
+              "type": [],
               "parameters": [
                 {
+                  "arrowFunction": false,
                   "name": "numeric",
                   "threeDots": false,
-                  "type": []
+                  "type": [],
+                  "parameters": []
                 }
               ]
             }
@@ -74,12 +82,22 @@
       ],
       "parameters": [
         {
+          "arrowFunction": false,
+          "threeDots": false,
           "name": "text",
-          "type": "string"
+          "type": [
+            "string"
+          ],
+          "parameters": []
         },
         {
+          "arrowFunction": false,
+          "threeDots": false,
           "name": "numeric",
-          "type": "number"
+          "type": [
+            "number"
+          ],
+          "parameters": []
         }
       ]
     },
@@ -97,12 +115,16 @@
           "name": "operatorC",
           "parameters": [
             {
+              "threeDots": false,
               "arrowFunction": false,
+              "type": [],
               "parameters": [
                 {
+                  "arrowFunction": false,
                   "name": "dummy",
                   "threeDots": false,
-                  "type": []
+                  "type": [],
+                  "parameters": []
                 }
               ]
             }
@@ -111,8 +133,13 @@
       ],
       "parameters": [
         {
+          "arrowFunction": false,
+          "threeDots": false,
           "name": "dummy",
-          "type": "Dummy"
+          "type": [
+            "Dummy"
+          ],
+          "parameters": []
         }
       ]
     },
@@ -161,22 +188,30 @@
           "name": "operatorB",
           "parameters": [
             {
+              "threeDots": false,
               "arrowFunction": false,
+              "type": [],
               "parameters": [
                 {
+                  "arrowFunction": false,
                   "name": "text",
                   "threeDots": false,
-                  "type": []
+                  "type": [],
+                  "parameters": []
                 }
               ]
             },
             {
+              "threeDots": false,
               "arrowFunction": false,
+              "type": [],
               "parameters": [
                 {
+                  "arrowFunction": false,
                   "name": "numeric",
                   "threeDots": false,
-                  "type": []
+                  "type": [],
+                  "parameters": []
                 }
               ]
             }
@@ -186,12 +221,16 @@
           "name": "operatorC",
           "parameters": [
             {
+              "threeDots": false,
               "arrowFunction": false,
+              "type": [],
               "parameters": [
                 {
+                  "arrowFunction": false,
                   "name": "dummy",
                   "threeDots": false,
-                  "type": []
+                  "type": [],
+                  "parameters": []
                 }
               ]
             }
@@ -200,16 +239,31 @@
       ],
       "parameters": [
         {
+          "arrowFunction": false,
+          "threeDots": false,
           "name": "text",
-          "type": "string"
+          "type": [
+            "string"
+          ],
+          "parameters": []
         },
         {
+          "arrowFunction": false,
+          "threeDots": false,
           "name": "numeric",
-          "type": "number"
+          "type": [
+            "number"
+          ],
+          "parameters": []
         },
         {
+          "arrowFunction": false,
+          "threeDots": false,
           "name": "dummy",
-          "type": "Dummy"
+          "type": [
+            "Dummy"
+          ],
+          "parameters": []
         }
       ]
     },
@@ -227,12 +281,16 @@
           "name": "map",
           "parameters": [
             {
+              "threeDots": false,
               "arrowFunction": true,
+              "type": [],
               "parameters": [
                 {
+                  "arrowFunction": false,
                   "threeDots": false,
                   "name": "v",
-                  "type": []
+                  "type": [],
+                  "parameters": []
                 }
               ],
               "body": {
@@ -248,12 +306,16 @@
           "name": "map",
           "parameters": [
             {
+              "threeDots": false,
               "arrowFunction": true,
+              "type": [],
               "parameters": [
                 {
+                  "arrowFunction": false,
                   "threeDots": false,
                   "name": "v",
-                  "type": []
+                  "type": [],
+                  "parameters": []
                 }
               ],
               "body": {
@@ -269,12 +331,16 @@
           "name": "map",
           "parameters": [
             {
+              "threeDots": false,
               "arrowFunction": false,
+              "type": [],
               "parameters": [
                 {
+                  "arrowFunction": false,
                   "threeDots": false,
                   "name": "v",
-                  "type": []
+                  "type": [],
+                  "parameters": []
                 }
               ],
               "body": {
@@ -289,8 +355,13 @@
       ],
       "parameters": [
         {
+          "arrowFunction": false,
+          "threeDots": false,
           "name": "numeric",
-          "type": "number"
+          "type": [
+            "number"
+          ],
+          "parameters": []
         }
       ]
     }
