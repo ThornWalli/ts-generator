@@ -13,6 +13,25 @@
   ],
   "operators": [
     {
+      "returnType": {
+        "name": "Observable",
+        "type": [
+          {
+            "name": "number",
+            "type": []
+          }
+        ]
+      },
+      "parameterType": {
+        "name": "Observable",
+        "type": [
+          {
+            "name": "number",
+            "type": []
+          }
+        ]
+      },
+      "typeParameters": [],
       "docType": {
         "description": "Simple addition",
         "params": [
@@ -29,13 +48,6 @@
             "number"
           ]
         }
-      },
-      "returnType": {
-        "name": "Observable",
-        "type": [
-          "number"
-        ],
-        "generic": false
       },
       "name": "simpleAddition",
       "operators": [

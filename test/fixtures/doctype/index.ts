@@ -5,4 +5,4 @@ import { operatorA } from "./operators";
  * @param {number} value Property Description
  * @returns {Observable<number>} Return Description
  */
-export function operator(value: number) { return (source: Observable<number>): Observable<number> => { return source.pipe(operatorA()); }; }
+export function operator(value: number) { return (source: Observable<number>): Observable<number> => { return source.pipe(operatorA(value)); }; }

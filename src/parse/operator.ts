@@ -2,9 +2,11 @@ import ts, { isDotDotDotToken } from 'typescript';
 import {
   OperatorDescription,
   ParameterDescription,
-  ReturnType,
   SubOperatorDescription,
-  TYPE_DEFINITIONS
+  TYPE_DEFINITIONS,
+  TypeDescription,
+  OperatorParameter,
+  OperatorType
 } from '../types';
 import { getDocType } from './doctype';
 
@@ -17,10 +19,12 @@ export function getOperators(sourceFile: ts.SourceFile) {
       if (functionDeclaration.body) {
         const innerFunction = getInnerFunction(functionDeclaration.body);
         if (innerFunction) {
-          const { returnType, operators } = parseInnerFunction(innerFunction);
+          const { returnType, parameterType, operators } = parseInnerFunction(innerFunction);
           result.push({
-            docType: getDocType(functionDeclaration),
             returnType,
+            parameterType,
+            typeParameters: getTypeParameters(functionDeclaration.typeParameters),
+            docType: getDocType(functionDeclaration),
             name,
             operators,
             parameters
@@ -36,19 +40,38 @@ export function getOperators(sourceFile: ts.SourceFile) {
   }, []);
 }
 
+function getTypeParameters(parameters: ts.NodeArray<ts.TypeParameterDeclaration> | undefined) {
+  return (parameters || []).map(param => {
+    return param.name.getText();
+  });
+}
+
 function parseInnerFunction(arrowFunction: ts.ArrowFunction): {
-  returnType: ReturnType;
+  returnType: OperatorType | undefined;
+  parameterType: OperatorParameter | undefined;
   operators: SubOperatorDescription[];
 } {
-  let returnType = getDefaultReturnType();
-  const [sourceParameter] = arrowFunction.parameters;
-  if (ts.isParameter(sourceParameter) && sourceParameter.type && ts.isTypeReferenceNode(sourceParameter.type)) {
-    const name = sourceParameter.type.typeName.getText();
-    const type = getTypeDefinitions(sourceParameter.type.typeArguments);
-    returnType = { name, type, generic: type[0] === 'T' };
+  // const returnType = getDefaultReturnType();
+
+  let returnType = undefined;
+  if (arrowFunction.type && ts.isTypeReferenceNode(arrowFunction.type)) {
+    const name = arrowFunction.type.typeName.getText();
+    returnType = { name, type: getTypeDefinitions(arrowFunction.type.typeArguments) };
   }
+
+  let parameterType = undefined;
+  const [parameterSource] = arrowFunction.parameters;
+  if (ts.isParameter(parameterSource) && parameterSource.type && ts.isTypeReferenceNode(parameterSource.type)) {
+    const name = parameterSource.type.typeName.getText();
+    parameterType = { name, type: getTypeDefinitions(parameterSource.type.typeArguments) };
+  }
+
   const pipeArguments: ts.Expression[] = getPipeArguments(arrowFunction);
-  return { returnType, operators: getSubOperators(pipeArguments) };
+  return {
+    returnType,
+    parameterType,
+    operators: getSubOperators(pipeArguments)
+  };
 }
 
 function getInnerFunction(body: ts.Block): ts.ArrowFunction | undefined {
@@ -62,17 +85,9 @@ function getInnerFunction(body: ts.Block): ts.ArrowFunction | undefined {
 function getTypeDefinitions(typeArguments: ts.NodeArray<ts.TypeNode> | undefined) {
   return (
     (typeArguments || []).map(typeArgument => {
-      return getTypeByKind(typeArgument?.kind || ts.SyntaxKind.AnyKeyword);
+      return getTypeByArgument(typeArgument);
     }) || []
   );
-}
-
-function getDefaultReturnType(): ReturnType {
-  return {
-    type: [TYPE_DEFINITIONS.Generic],
-    name: TYPE_DEFINITIONS.Generic,
-    generic: true
-  };
 }
 
 const getFunctionParameters = (functionDeclaration: ts.FunctionDeclaration) => {
@@ -113,18 +128,25 @@ function getParameterDescriptions(values: ts.NodeArray<ts.Expression>) {
   return values.map(arg => parseFunction(arg as ts.ArrowFunction)) as ParameterDescription[];
 }
 
-const getTypeByKind = (kind: ts.SyntaxKind) => {
-  switch (kind) {
+function getTypeByArgument(typeArgument: ts.TypeReferenceNode | ts.TypeNode): TypeDescription {
+  switch (typeArgument.kind as ts.SyntaxKind) {
     case ts.SyntaxKind.NumberKeyword:
-      return TYPE_DEFINITIONS.Number;
+      return { name: TYPE_DEFINITIONS.Number, type: [] } as TypeDescription;
     case ts.SyntaxKind.StringKeyword:
-      return TYPE_DEFINITIONS.String;
+      return { name: TYPE_DEFINITIONS.String, type: [] } as TypeDescription;
     case ts.SyntaxKind.BooleanKeyword:
-      return TYPE_DEFINITIONS.Boolean;
+      return { name: TYPE_DEFINITIONS.Boolean, type: [] } as TypeDescription;
     default:
-      return TYPE_DEFINITIONS.Generic;
+      if (ts.isTypeReferenceNode(typeArgument)) {
+        return {
+          name: typeArgument.typeName.getText(),
+          type: getTypeDefinitions(typeArgument.typeArguments)
+        };
+      } else {
+        return { name: TYPE_DEFINITIONS.Generic, type: [] } as TypeDescription;
+      }
   }
-};
+}
 
 function getPipeArguments(arrowFunction: ts.ArrowFunction): ts.Expression[] {
   if (ts.isBlock(arrowFunction.body)) {

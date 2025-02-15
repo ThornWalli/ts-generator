@@ -3,10 +3,8 @@ import {
   Configuration,
   OperatorDescription,
   ParameterDescription,
-  ReturnType,
   SubOperatorDescription,
-  TYPE_DEFINITION,
-  TYPE_DEFINITIONS
+  TypeDescription
 } from '../types';
 import { addDocType } from './doctype';
 
@@ -27,11 +25,18 @@ function createOperator(options: OperatorDescription): ts.FunctionDeclaration {
         undefined,
         IDENTIFIER_SOURCE,
         undefined,
-        ts.factory.createTypeReferenceNode(options.returnType.name, createTypeReferenceNodes(options.returnType.type)),
+        (options.parameterType &&
+          ts.factory.createTypeReferenceNode(
+            options.parameterType.name,
+            createTypeReferenceNodes(options.parameterType.type)
+          )) ||
+          undefined,
         undefined
       )
     ],
-    ts.factory.createTypeReferenceNode(options.returnType.name, createTypeReferenceNodes(options.returnType.type)),
+    (options.returnType &&
+      ts.factory.createTypeReferenceNode(options.returnType.name, createTypeReferenceNodes(options.returnType.type))) ||
+      undefined,
     undefined,
     ts.factory.createBlock([ts.factory.createReturnStatement(createPipeCall(options.operators))], false)
   );
@@ -40,7 +45,7 @@ function createOperator(options: OperatorDescription): ts.FunctionDeclaration {
     [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
     undefined,
     options.name,
-    createTypeParameters(options.returnType),
+    createTypeParameters(options.typeParameters),
     createParameterDeclarations(options.parameters),
     undefined,
     ts.factory.createBlock([ts.factory.createReturnStatement(innerFunction)], false)
@@ -66,10 +71,10 @@ function createParameterDeclarations(parameters: ParameterDescription[]): ts.Par
   );
 }
 
-function createTypeParameters(returnType: ReturnType): ts.TypeParameterDeclaration[] | undefined {
-  return returnType.generic
-    ? [ts.factory.createTypeParameterDeclaration([], TYPE_DEFINITIONS.Generic, undefined, undefined)]
-    : undefined;
+function createTypeParameters(typeParameters: string[]): ts.TypeParameterDeclaration[] | undefined {
+  return typeParameters.map(typeParameter =>
+    ts.factory.createTypeParameterDeclaration([], typeParameter, undefined, undefined)
+  );
 }
 
 function createPipeCall(operators: SubOperatorDescription[]): ts.CallExpression {
@@ -146,6 +151,6 @@ const resolveBody = ({ block, content }: { block: boolean; content: string[] }):
   return ts.factory.createIdentifier(content.join('; ') || '');
 };
 
-function createTypeReferenceNodes(type: TYPE_DEFINITION[]): ts.TypeReferenceNode[] {
-  return type.map(type => ts.factory.createTypeReferenceNode(type, []));
+function createTypeReferenceNodes(type: TypeDescription[]): ts.TypeReferenceNode[] {
+  return type.map(type => ts.factory.createTypeReferenceNode(type.name, createTypeReferenceNodes(type.type || [])));
 }

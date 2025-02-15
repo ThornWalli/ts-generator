@@ -46,10 +46,24 @@
       "returnType": {
         "name": "Observable",
         "type": [
-          "T"
-        ],
-        "generic": true
+          {
+            "name": "T",
+            "type": []
+          }
+        ]
       },
+      "parameterType": {
+        "name": "Observable",
+        "type": [
+          {
+            "name": "T",
+            "type": []
+          }
+        ]
+      },
+      "typeParameters": [
+        "T"
+      ],
       "name": "foo",
       "operators": [
         {
@@ -115,10 +129,24 @@
       "returnType": {
         "name": "Observable",
         "type": [
-          "T"
-        ],
-        "generic": true
+          {
+            "name": "T",
+            "type": []
+          }
+        ]
       },
+      "parameterType": {
+        "name": "Observable",
+        "type": [
+          {
+            "name": "T",
+            "type": []
+          }
+        ]
+      },
+      "typeParameters": [
+        "T"
+      ],
       "name": "bar",
       "operators": [
         {
@@ -154,6 +182,25 @@
       ]
     },
     {
+      "returnType": {
+        "name": "Observable",
+        "type": [
+          {
+            "name": "number",
+            "type": []
+          }
+        ]
+      },
+      "parameterType": {
+        "name": "Observable",
+        "type": [
+          {
+            "name": "number",
+            "type": []
+          }
+        ]
+      },
+      "typeParameters": [],
       "docType": {
         "description": "foobar description",
         "params": [
@@ -180,13 +227,6 @@
             "number"
           ]
         }
-      },
-      "returnType": {
-        "name": "Observable",
-        "type": [
-          "number"
-        ],
-        "generic": false
       },
       "name": "foobar",
       "operators": [
@@ -281,10 +321,22 @@
       "returnType": {
         "name": "Observable",
         "type": [
-          "number"
-        ],
-        "generic": false
+          {
+            "name": "number",
+            "type": []
+          }
+        ]
       },
+      "parameterType": {
+        "name": "Observable",
+        "type": [
+          {
+            "name": "number",
+            "type": []
+          }
+        ]
+      },
+      "typeParameters": [],
       "name": "functionExpressions",
       "operators": [
         {

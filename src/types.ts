@@ -5,16 +5,26 @@ export type Configuration = {
   operators: OperatorDescription[];
 };
 
+export type TypeDescription = {
+  name: TYPE_DEFINITION;
+  type: TypeDescription[] | undefined;
+};
+
 export type TYPE_DEFINITION = TYPE_DEFINITIONS | string;
 
-export type ReturnType = {
-  type: TYPE_DEFINITION[];
+export type OperatorType = {
   name: string;
-  generic: boolean;
+  type: TypeDescription[];
+};
+export type OperatorParameter = {
+  name: string;
+  type: TypeDescription[];
 };
 
 export type OperatorDescription = {
-  returnType: ReturnType;
+  returnType: OperatorType | undefined;
+  parameterType: OperatorParameter | undefined;
+  typeParameters: string[];
   name: string | undefined;
   operators: SubOperatorDescription[];
   parameters: ParameterDescription[];

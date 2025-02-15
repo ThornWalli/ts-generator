@@ -6,6 +6,11 @@
       "path": "rxjs"
     },
     {
+      "alias": "from",
+      "name": "from",
+      "path": "rxjs"
+    },
+    {
       "alias": "map",
       "name": "map",
       "path": "rxjs"
@@ -31,10 +36,22 @@
       "returnType": {
         "name": "Observable",
         "type": [
-          "number"
-        ],
-        "generic": false
+          {
+            "name": "number",
+            "type": []
+          }
+        ]
       },
+      "parameterType": {
+        "name": "Observable",
+        "type": [
+          {
+            "name": "number",
+            "type": []
+          }
+        ]
+      },
+      "typeParameters": [],
       "name": "test",
       "operators": [
         {
@@ -131,10 +148,22 @@
       "returnType": {
         "name": "Observable",
         "type": [
-          "number"
-        ],
-        "generic": false
+          {
+            "name": "number",
+            "type": []
+          }
+        ]
       },
+      "parameterType": {
+        "name": "Observable",
+        "type": [
+          {
+            "name": "number",
+            "type": []
+          }
+        ]
+      },
+      "typeParameters": [],
       "name": "test2",
       "operators": [
         {
@@ -174,10 +203,22 @@
       "returnType": {
         "name": "Observable",
         "type": [
-          "number"
-        ],
-        "generic": false
+          {
+            "name": "number",
+            "type": []
+          }
+        ]
       },
+      "parameterType": {
+        "name": "Observable",
+        "type": [
+          {
+            "name": "number",
+            "type": []
+          }
+        ]
+      },
+      "typeParameters": [],
       "name": "test3",
       "operators": [
         {
@@ -217,15 +258,131 @@
       "returnType": {
         "name": "Observable",
         "type": [
-          "T"
-        ],
-        "generic": true
+          {
+            "name": "T",
+            "type": []
+          }
+        ]
       },
+      "parameterType": {
+        "name": "Observable",
+        "type": [
+          {
+            "name": "T",
+            "type": []
+          }
+        ]
+      },
+      "typeParameters": [
+        "T"
+      ],
       "name": "foo",
       "operators": [
         {
           "name": "operatorA",
           "parameters": []
+        },
+        {
+          "name": "operatorB",
+          "parameters": [
+            {
+              "threeDots": false,
+              "arrowFunction": false,
+              "type": [],
+              "parameters": [
+                {
+                  "arrowFunction": false,
+                  "name": "text",
+                  "threeDots": false,
+                  "type": [],
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "threeDots": false,
+              "arrowFunction": false,
+              "type": [],
+              "parameters": [
+                {
+                  "arrowFunction": false,
+                  "name": "numeric",
+                  "threeDots": false,
+                  "type": [],
+                  "parameters": []
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "arrowFunction": false,
+          "threeDots": false,
+          "name": "text",
+          "type": [
+            "string"
+          ],
+          "parameters": []
+        },
+        {
+          "arrowFunction": false,
+          "threeDots": false,
+          "name": "numeric",
+          "type": [
+            "number"
+          ],
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "returnType": {
+        "name": "Observable",
+        "type": [
+          {
+            "name": "Response",
+            "type": []
+          }
+        ]
+      },
+      "parameterType": {
+        "name": "Observable",
+        "type": [
+          {
+            "name": "string",
+            "type": []
+          }
+        ]
+      },
+      "typeParameters": [],
+      "name": "fooFetch",
+      "operators": [
+        {
+          "name": "concatMap",
+          "parameters": [
+            {
+              "threeDots": false,
+              "arrowFunction": true,
+              "type": [],
+              "parameters": [
+                {
+                  "arrowFunction": false,
+                  "threeDots": false,
+                  "name": "url",
+                  "type": [],
+                  "parameters": []
+                }
+              ],
+              "body": {
+                "block": true,
+                "content": [
+                  "return from(fetch(url)).pipe(operatorA())"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "operatorB",

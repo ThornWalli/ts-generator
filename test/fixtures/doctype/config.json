@@ -13,6 +13,25 @@
   ],
   "operators": [
     {
+      "returnType": {
+        "name": "Observable",
+        "type": [
+          {
+            "name": "number",
+            "type": []
+          }
+        ]
+      },
+      "parameterType": {
+        "name": "Observable",
+        "type": [
+          {
+            "name": "number",
+            "type": []
+          }
+        ]
+      },
+      "typeParameters": [],
       "docType": {
         "description": "Function Description",
         "params": [
@@ -30,18 +49,26 @@
           ]
         }
       },
-      "returnType": {
-        "name": "Observable",
-        "type": [
-          "number"
-        ],
-        "generic": false
-      },
       "name": "operator",
       "operators": [
         {
           "name": "operatorA",
-          "parameters": []
+          "parameters": [
+            {
+              "threeDots": false,
+              "arrowFunction": false,
+              "type": [],
+              "parameters": [
+                {
+                  "arrowFunction": false,
+                  "name": "value",
+                  "threeDots": false,
+                  "type": [],
+                  "parameters": []
+                }
+              ]
+            }
+          ]
         }
       ],
       "parameters": [
