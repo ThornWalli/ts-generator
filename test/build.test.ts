@@ -4,12 +4,14 @@ import build from '../src/build/index';
 
 describe('build', () => {
   test('build (default)', () => compare('default'));
-  test('build (math)', () => compare('math'));
   test('build (doctype)', () => compare('doctype'));
+  test('build (math)', () => compare('math'));
+  test('build (test)', () => compare('test'));
 });
 
 async function compare(fixture: string) {
-  const { data } = await getFixtureFile(fixture);
+  const { data: source } = await getFixtureFile(fixture);
   const config = await getFixtureConfig(fixture);
-  expect(build(config)).toEqual(data);
+  const target = build(config);
+  expect(target).toEqual(source);
 }

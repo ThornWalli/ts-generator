@@ -24,5 +24,5 @@ export function uniqueBy<T>(array: T[], key: keyof T): T[] {
 }
 
 export function getFixture() {
-  return process.env.npm_config_fixture || 'default';
+  return process.env.npm_config_fixture || process.env.DEBUG_FIXTURE || 'default';
 }

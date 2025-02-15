@@ -1,4 +1,4 @@
-import ts from 'typescript';
+import ts, { isDotDotDotToken } from 'typescript';
 import {
   OperatorDescription,
   ParameterDescription,
@@ -18,11 +18,8 @@ export function getOperators(sourceFile: ts.SourceFile) {
         const innerFunction = getInnerFunction(functionDeclaration.body);
         if (innerFunction) {
           const { returnType, operators } = parseInnerFunction(innerFunction);
-
-          const docType = getDocType(functionDeclaration);
-
           result.push({
-            docType,
+            docType: getDocType(functionDeclaration),
             returnType,
             name,
             operators,
@@ -83,7 +80,7 @@ const getFunctionParameters = (functionDeclaration: ts.FunctionDeclaration) => {
     const name = parameter.name.getText();
     const type = parameter.type ? parameter.type.getText() : TYPE_DEFINITIONS.Any;
     return { name, type };
-  });
+  }) as ParameterDescription[];
 
   return parameters;
 };
@@ -106,7 +103,7 @@ function getSubOperators(pipeArguments: ts.Expression[]) {
 }
 
 function getParameterDescriptions(values: ts.NodeArray<ts.Expression>) {
-  return values.map(arg => ({ name: arg.getText() })) as ParameterDescription[];
+  return values.map(arg => parseFunction(arg as ts.ArrowFunction)) as ParameterDescription[];
 }
 
 const getTypeByKind = (kind: ts.SyntaxKind) => {
@@ -123,12 +120,74 @@ const getTypeByKind = (kind: ts.SyntaxKind) => {
 };
 
 function getPipeArguments(arrowFunction: ts.ArrowFunction): ts.Expression[] {
-  return ts.isBlock(arrowFunction.body)
-    ? arrowFunction.body.statements
-        .filter(ts.isReturnStatement)
-        .map(statement => statement.expression)
-        .filter(
-          (expression): expression is ts.Expression => expression !== undefined && ts.isCallExpression(expression)
-        )
-    : [];
+  if (ts.isBlock(arrowFunction.body)) {
+    return arrowFunction.body.statements
+      .filter(ts.isReturnStatement)
+      .map(statement => statement.expression)
+      .filter((expression): expression is ts.Expression => expression !== undefined && ts.isCallExpression(expression));
+  }
+  return [];
+}
+
+function parseFunction(functionExpression: ts.ArrowFunction | ts.FunctionExpression): ParameterDescription {
+  let parameters: { threeDots: boolean; name: string; type: string[] }[] = [];
+  let body = undefined;
+  if (ts.isIdentifier(functionExpression)) {
+    parameters = [{ name: (functionExpression as ts.Identifier).getText(), threeDots: false, type: [] }];
+  } else if (ts.isArrowFunction(functionExpression) || ts.isFunctionExpression(functionExpression)) {
+    parameters = (functionExpression.parameters || [])
+      .filter(parameter => ts.isParameter(parameter))
+      .map(parameter => {
+        const types = [];
+        if (parameter.type && ts.isTupleTypeNode(parameter.type)) {
+          types.push(...parameter.type.elements);
+        } else if (parameter.type) {
+          types.push(parameter.type);
+        }
+
+        return {
+          threeDots: (parameter.dotDotDotToken && isDotDotDotToken(parameter.dotDotDotToken)) || false,
+          name: parameter.name.getText(),
+          type: types.map(type => (type as ts.TypeNode).getText())
+        };
+      }) as {
+      threeDots: boolean;
+      name: string;
+      type: string[];
+    }[];
+
+    if (
+      functionExpression.body &&
+      (ts.isBlock(functionExpression.body) || ts.isBinaryExpression(functionExpression.body))
+    ) {
+      if (
+        (ts.isBinaryExpression(functionExpression.body) && functionExpression.body.getText()) ||
+        (ts.isBlock(functionExpression.body) && functionExpression.body.statements?.length > 0)
+      ) {
+        let content = [functionExpression.body.getText()];
+        if (ts.isBlock(functionExpression.body)) {
+          content = functionExpression.body.statements.map(statement => {
+            return statement.getText();
+          });
+        }
+        content = cleanContent(content);
+
+        body = {
+          block: ts.isBlock(functionExpression.body),
+          content
+        };
+      }
+    }
+  }
+  const parameterDescription = {
+    arrowFunction: ts.isArrowFunction(functionExpression),
+    type: functionExpression.type?.getText(),
+    parameters,
+    body
+  } as ParameterDescription;
+  return parameterDescription;
+}
+
+function cleanContent(content: string[]) {
+  return content.map(line => line.replace(/[ ;]*$/, '').trim());
 }

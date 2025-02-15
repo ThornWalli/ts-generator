@@ -4,12 +4,14 @@ import { getFixtureConfig, getFixtureFile } from './utils';
 
 describe('parse', () => {
   test('parse (default)', () => compare('default'));
-  test('parse (math)', () => compare('math'));
   test('parse (doctype)', () => compare('doctype'));
+  test('parse (math)', () => compare('math'));
+  test('parse (test)', () => compare('test'));
 });
 
 async function compare(fixture: string) {
   const { filename, data } = await getFixtureFile(fixture);
-  const config = await getFixtureConfig(fixture);
-  expect(parse(filename, data)).toEqual(config);
+  const source = await getFixtureConfig(fixture);
+  const target = parse(filename, data);
+  expect(target).toEqual(source);
 }

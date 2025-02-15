@@ -21,7 +21,7 @@
       "command": "npm run dev:parse",
       "name": "Debug: dev:parse",
       "request": "launch",
-      "type": "node-terminal"
+      "type": "node-terminal",
     }
   ]
 }

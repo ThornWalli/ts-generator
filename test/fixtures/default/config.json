@@ -16,6 +16,11 @@
       "path": "./operators"
     },
     {
+      "alias": "map",
+      "name": "map",
+      "path": "rxjs"
+    },
+    {
       "alias": "Observable",
       "name": "Observable",
       "path": "rxjs"
@@ -45,10 +50,24 @@
           "name": "operatorB",
           "parameters": [
             {
-              "name": "text"
+              "arrowFunction": false,
+              "parameters": [
+                {
+                  "name": "text",
+                  "threeDots": false,
+                  "type": []
+                }
+              ]
             },
             {
-              "name": "numeric"
+              "arrowFunction": false,
+              "parameters": [
+                {
+                  "name": "numeric",
+                  "threeDots": false,
+                  "type": []
+                }
+              ]
             }
           ]
         }
@@ -78,7 +97,14 @@
           "name": "operatorC",
           "parameters": [
             {
-              "name": "dummy"
+              "arrowFunction": false,
+              "parameters": [
+                {
+                  "name": "dummy",
+                  "threeDots": false,
+                  "type": []
+                }
+              ]
             }
           ]
         }
@@ -135,10 +161,24 @@
           "name": "operatorB",
           "parameters": [
             {
-              "name": "text"
+              "arrowFunction": false,
+              "parameters": [
+                {
+                  "name": "text",
+                  "threeDots": false,
+                  "type": []
+                }
+              ]
             },
             {
-              "name": "numeric"
+              "arrowFunction": false,
+              "parameters": [
+                {
+                  "name": "numeric",
+                  "threeDots": false,
+                  "type": []
+                }
+              ]
             }
           ]
         },
@@ -146,7 +186,14 @@
           "name": "operatorC",
           "parameters": [
             {
-              "name": "dummy"
+              "arrowFunction": false,
+              "parameters": [
+                {
+                  "name": "dummy",
+                  "threeDots": false,
+                  "type": []
+                }
+              ]
             }
           ]
         }
@@ -163,6 +210,87 @@
         {
           "name": "dummy",
           "type": "Dummy"
+        }
+      ]
+    },
+    {
+      "returnType": {
+        "name": "Observable",
+        "type": [
+          "number"
+        ],
+        "generic": false
+      },
+      "name": "functionExpressions",
+      "operators": [
+        {
+          "name": "map",
+          "parameters": [
+            {
+              "arrowFunction": true,
+              "parameters": [
+                {
+                  "threeDots": false,
+                  "name": "v",
+                  "type": []
+                }
+              ],
+              "body": {
+                "block": false,
+                "content": [
+                  "numeric + v"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "map",
+          "parameters": [
+            {
+              "arrowFunction": true,
+              "parameters": [
+                {
+                  "threeDots": false,
+                  "name": "v",
+                  "type": []
+                }
+              ],
+              "body": {
+                "block": true,
+                "content": [
+                  "return numeric + v"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "map",
+          "parameters": [
+            {
+              "arrowFunction": false,
+              "parameters": [
+                {
+                  "threeDots": false,
+                  "name": "v",
+                  "type": []
+                }
+              ],
+              "body": {
+                "block": true,
+                "content": [
+                  "return numeric + v"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "numeric",
+          "type": "number"
         }
       ]
     }

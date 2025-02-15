@@ -24,7 +24,18 @@ export type SubOperatorDescription = {
   name: string;
   parameters: ParameterDescription[];
 };
-export type ParameterDescription = { name: string; type: string };
+export type ParameterDescription = {
+  arrowFunction: boolean;
+  name: string | undefined;
+  type: string | undefined;
+  parameters: { threeDots: boolean; name: string; type: string[] }[];
+  body:
+    | {
+        block: boolean;
+        content: string[];
+      }
+    | undefined;
+};
 
 export type ImportDeclaration = {
   alias: string;

@@ -2,6 +2,7 @@ import ts from 'typescript';
 import {
   Configuration,
   OperatorDescription,
+  ParameterDescription,
   ReturnType,
   SubOperatorDescription,
   TYPE_DEFINITION,
@@ -52,14 +53,14 @@ function createOperator(options: OperatorDescription): ts.FunctionDeclaration {
   return functionDeclaration;
 }
 
-function createParameterDeclarations(parameters: { name: string; type: string }[]): ts.ParameterDeclaration[] {
+function createParameterDeclarations(parameters: ParameterDescription[]): ts.ParameterDeclaration[] {
   return parameters.map(({ name, type }) =>
     ts.factory.createParameterDeclaration(
       [],
       undefined,
-      name,
+      name as string,
       undefined,
-      ts.factory.createTypeReferenceNode(type, []),
+      ts.factory.createTypeReferenceNode(type as string, []),
       undefined
     )
   );
@@ -76,13 +77,65 @@ function createPipeCall(operators: SubOperatorDescription[]): ts.CallExpression 
     ts.factory.createPropertyAccessExpression(ts.factory.createIdentifier(IDENTIFIER_SOURCE), FUNCTION_PIPE),
     [],
     operators.map(operator => {
-      const parameters = operator.parameters.map(({ name }) => {
-        return ts.factory.createIdentifier(name);
-      });
+      const parameters = operator.parameters
+        .map(({ arrowFunction, type, parameters, body }) => {
+          const parameterDeclarations = parameters.map(({ threeDots, name, type }) => {
+            let preparedType;
+            if (type.length > 1) {
+              preparedType = ts.factory.createTupleTypeNode(
+                type.map(type => ts.factory.createTypeReferenceNode(type, []))
+              );
+            } else if (type.length > 0) {
+              preparedType = ts.factory.createTypeReferenceNode(type[0], []);
+            }
+            return ts.factory.createParameterDeclaration(
+              [],
+              threeDots ? ts.factory.createToken(ts.SyntaxKind.DotDotDotToken) : undefined,
+              name,
+              undefined,
+              preparedType,
+              undefined
+            );
+          });
+          if (!body) {
+            return parameters.map(parameter => ts.factory.createIdentifier(parameter.name || ''));
+          } else if (arrowFunction) {
+            return ts.factory.createArrowFunction(
+              [],
+              [],
+              parameterDeclarations,
+              (type && ts.factory.createTypeReferenceNode(type, [])) || undefined,
+              undefined,
+              body && (resolveBody(body) as ts.Block)
+            );
+          } else {
+            return ts.factory.createFunctionExpression(
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              parameterDeclarations,
+              (type && ts.factory.createTypeReferenceNode(type, [])) || undefined,
+              body && (resolveBody(body) as ts.Block)
+            );
+          }
+        })
+        .flat();
       return ts.factory.createCallExpression(ts.factory.createIdentifier(operator.name), [], parameters);
     })
   );
 }
+
+const resolveBody = ({ block, content }: { block: boolean; content: string[] }): ts.Block | ts.Identifier => {
+  if (block) {
+    const blocks = [];
+    if (content) {
+      blocks.push(ts.factory.createExpressionStatement(ts.factory.createIdentifier(content.join('; '))));
+    }
+    return ts.factory.createBlock(blocks);
+  }
+  return ts.factory.createIdentifier(content.join('; ') || '');
+};
 
 function createTypeReferenceNodes(type: TYPE_DEFINITION[]): ts.TypeReferenceNode[] {
   return type.map(type => ts.factory.createTypeReferenceNode(type, []));

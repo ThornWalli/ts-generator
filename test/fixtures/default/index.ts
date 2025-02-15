@@ -1,5 +1,5 @@
 import { operatorA, operatorB, operatorDummy as operatorC } from "./operators";
-import { Observable } from "rxjs";
+import { map, Observable } from "rxjs";
 import { Dummy } from "./types";
 export function foo<T>(text: string, numeric: number) { return (source: Observable<T>): Observable<T> => { return source.pipe(operatorA(), operatorB(text, numeric)); }; }
 export function bar<T>(dummy: Dummy) { return (source: Observable<T>): Observable<T> => { return source.pipe(operatorC(dummy)); }; }
@@ -11,3 +11,4 @@ export function bar<T>(dummy: Dummy) { return (source: Observable<T>): Observabl
  * @returns {Observable<number>} Return Value
  */
 export function foobar(text: string, numeric: number, dummy: Dummy) { return (source: Observable<number>): Observable<number> => { return source.pipe(operatorA(), operatorB(text, numeric), operatorC(dummy)); }; }
+export function functionExpressions(numeric: number) { return (source: Observable<number>): Observable<number> => { return source.pipe(map(v => numeric + v), map(v => { return numeric + v; }), map(function (v) { return numeric + v; })); }; }

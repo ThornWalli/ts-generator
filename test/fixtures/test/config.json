@@ -1,0 +1,243 @@
+{
+  "imports": [
+    {
+      "alias": "concatMap",
+      "name": "concatMap",
+      "path": "rxjs"
+    },
+    {
+      "alias": "map",
+      "name": "map",
+      "path": "rxjs"
+    },
+    {
+      "alias": "Observable",
+      "name": "Observable",
+      "path": "rxjs"
+    },
+    {
+      "alias": "operatorA",
+      "name": "operatorA",
+      "path": "./operators"
+    },
+    {
+      "alias": "operatorB",
+      "name": "operatorB",
+      "path": "./operators"
+    }
+  ],
+  "operators": [
+    {
+      "returnType": {
+        "name": "Observable",
+        "type": [
+          "number"
+        ],
+        "generic": false
+      },
+      "name": "test",
+      "operators": [
+        {
+          "name": "map",
+          "parameters": [
+            {
+              "arrowFunction": true,
+              "parameters": [
+                {
+                  "threeDots": false,
+                  "name": "value",
+                  "type": [
+                    "number"
+                  ]
+                }
+              ],
+              "body": {
+                "block": false,
+                "content": [
+                  "value + 1"
+                ]
+              },
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "name": "map",
+          "parameters": [
+            {
+              "arrowFunction": true,
+              "parameters": [
+                {
+                  "threeDots": false,
+                  "name": "value",
+                  "type": [
+                    "number"
+                  ]
+                }
+              ],
+              "body": {
+                "block": true,
+                "content": [
+                  "return value + 1"
+                ]
+              },
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "name": "map",
+          "parameters": [
+            {
+              "arrowFunction": false,
+              "parameters": [
+                {
+                  "threeDots": false,
+                  "name": "value",
+                  "type": [
+                    "number"
+                  ]
+                }
+              ],
+              "body": {
+                "block": true,
+                "content": [
+                  "return value + 1"
+                ]
+              },
+              "type": "number"
+            }
+          ]
+        }
+      ],
+      "parameters": []
+    },
+    {
+      "returnType": {
+        "name": "Observable",
+        "type": [
+          "number"
+        ],
+        "generic": false
+      },
+      "name": "test2",
+      "operators": [
+        {
+          "name": "map",
+          "parameters": [
+            {
+              "arrowFunction": true,
+              "parameters": [
+                {
+                  "threeDots": false,
+                  "name": "value",
+                  "type": [
+                    "number"
+                  ]
+                }
+              ],
+              "body": {
+                "block": true,
+                "content": [
+                  "value = Math.pow(value, 2)",
+                  "return value + 1"
+                ]
+              },
+              "type": "number"
+            }
+          ]
+        }
+      ],
+      "parameters": []
+    },
+    {
+      "returnType": {
+        "name": "Observable",
+        "type": [
+          "number"
+        ],
+        "generic": false
+      },
+      "name": "test3",
+      "operators": [
+        {
+          "name": "map",
+          "parameters": [
+            {
+              "arrowFunction": true,
+              "parameters": [
+                {
+                  "threeDots": true,
+                  "name": "list",
+                  "type": [
+                    "number",
+                    "number"
+                  ]
+                }
+              ],
+              "body": {
+                "block": true,
+                "content": [
+                  "return list[0]"
+                ]
+              },
+              "type": "number"
+            }
+          ]
+        }
+      ],
+      "parameters": []
+    },
+    {
+      "returnType": {
+        "name": "Observable",
+        "type": [
+          "T"
+        ],
+        "generic": true
+      },
+      "name": "foo",
+      "operators": [
+        {
+          "name": "operatorA",
+          "parameters": []
+        },
+        {
+          "name": "operatorB",
+          "parameters": [
+            {
+              "arrowFunction": false,
+              "parameters": [
+                {
+                  "name": "text",
+                  "threeDots": false,
+                  "type": []
+                }
+              ]
+            },
+            {
+              "arrowFunction": false,
+              "parameters": [
+                {
+                  "name": "numeric",
+                  "threeDots": false,
+                  "type": []
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string"
+        },
+        {
+          "name": "numeric",
+          "type": "number"
+        }
+      ]
+    }
+  ]
+}
