@@ -15,13 +15,12 @@
     }
   },
   "include": [
+    "scripts/**/*.ts",
     "build/**/*.ts",
     "src/**/*.ts",
     "test/**/*.ts",
     "!test/fixtures/**/*.ts",
-    "./node_modules/rxjs/**/*.ts",
-    "script/parse.ts",
-    "script/build.ts"
+    "./node_modules/rxjs/**/*.ts"
   ],
   "exclude": [
     "node_modules",

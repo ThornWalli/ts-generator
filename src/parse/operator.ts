@@ -152,6 +152,8 @@ function getPipeArguments(arrowFunction: ts.ArrowFunction): ts.Expression[] {
       .filter(ts.isReturnStatement)
       .map(statement => statement.expression)
       .filter((expression): expression is ts.Expression => expression !== undefined && ts.isCallExpression(expression));
+  } else if (ts.isCallExpression(arrowFunction.body)) {
+    return [arrowFunction.body];
   }
   return [];
 }
@@ -193,10 +195,13 @@ function parseFunction(functionExpression: ts.ArrowFunction | ts.FunctionExpress
 
     if (
       functionExpression.body &&
-      (ts.isBlock(functionExpression.body) || ts.isBinaryExpression(functionExpression.body))
+      (ts.isBlock(functionExpression.body) ||
+        ts.isCallExpression(functionExpression.body) ||
+        ts.isBinaryExpression(functionExpression.body))
     ) {
       if (
-        (ts.isBinaryExpression(functionExpression.body) && functionExpression.body.getText()) ||
+        ((ts.isCallExpression(functionExpression.body) || ts.isBinaryExpression(functionExpression.body)) &&
+          functionExpression.body.getText()) ||
         (ts.isBlock(functionExpression.body) && functionExpression.body.statements?.length > 0)
       ) {
         let content = [functionExpression.body.getText()];

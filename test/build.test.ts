@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { getFixtureConfig, getFixtureFile } from './utils';
-import build from '../src/build/index';
+import { build } from '../src';
 
 describe('build', () => {
   test('build (default)', () => compare('default'));

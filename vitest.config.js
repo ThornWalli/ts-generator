@@ -18,7 +18,8 @@ export default defineConfig({
         'vitest.workspace.js',
 
         // optional exclude
-        './src/**/index.ts'
+        'scripts/**/*.ts',
+        'test/fixtures/**/*.ts'
       ]
     }
   }

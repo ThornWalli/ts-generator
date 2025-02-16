@@ -1,14 +1,14 @@
 {
   "imports": [
     {
-      "alias": "Observable",
-      "name": "Observable",
+      "alias": "map",
+      "name": "map",
       "path": "rxjs"
     },
     {
-      "alias": "add",
-      "name": "add",
-      "path": "./operators"
+      "alias": "Observable",
+      "name": "Observable",
+      "path": "rxjs"
     }
   ],
   "operators": [
@@ -31,40 +31,46 @@
       },
       "typeParameters": [],
       "docType": {
-        "description": "Simple addition",
+        "description": "Adds a value to each number emitted by the source Observable.",
         "params": [
           {
             "name": "value",
             "type": "number",
-            "description": "Value to add"
+            "description": "- The value to add."
           }
         ],
         "returns": {
-          "name": "Observable",
-          "description": "Return Value",
+          "name": "Function",
+          "description": "A function that takes an Observable and returns an Observable.",
           "type": [
-            "number"
+            "Observable<number>"
           ]
         }
       },
-      "name": "simpleAddition",
+      "name": "add",
       "operators": [
         {
-          "name": "add",
+          "name": "map",
           "parameters": [
             {
               "threeDots": false,
-              "arrowFunction": false,
+              "arrowFunction": true,
               "type": [],
               "parameters": [
                 {
                   "arrowFunction": false,
-                  "name": "value",
                   "threeDots": false,
+                  "name": "v",
                   "type": [],
                   "parameters": []
                 }
-              ]
+              ],
+              "body": {
+                "block": false,
+                "content": [
+                  "v + value"
+                ]
+              }
             }
           ]
         }
@@ -80,6 +86,660 @@
           "parameters": []
         }
       ]
+    },
+    {
+      "returnType": {
+        "name": "Observable",
+        "typeParameters": [
+          {
+            "name": "number"
+          }
+        ]
+      },
+      "parameterType": {
+        "name": "Observable",
+        "typeParameters": [
+          {
+            "name": "number"
+          }
+        ]
+      },
+      "typeParameters": [],
+      "docType": {
+        "description": "Subtracts a value from each number emitted by the source Observable.",
+        "params": [
+          {
+            "name": "value",
+            "type": "number",
+            "description": "- The value to subtract."
+          }
+        ],
+        "returns": {
+          "name": "Function",
+          "description": "A function that takes an Observable and returns an Observable.",
+          "type": [
+            "Observable<number>"
+          ]
+        }
+      },
+      "name": "sub",
+      "operators": [
+        {
+          "name": "map",
+          "parameters": [
+            {
+              "threeDots": false,
+              "arrowFunction": true,
+              "type": [],
+              "parameters": [
+                {
+                  "arrowFunction": false,
+                  "threeDots": false,
+                  "name": "v",
+                  "type": [],
+                  "parameters": []
+                }
+              ],
+              "body": {
+                "block": false,
+                "content": [
+                  "v - value"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "arrowFunction": false,
+          "threeDots": false,
+          "name": "value",
+          "type": [
+            "number"
+          ],
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "returnType": {
+        "name": "Observable",
+        "typeParameters": [
+          {
+            "name": "number"
+          }
+        ]
+      },
+      "parameterType": {
+        "name": "Observable",
+        "typeParameters": [
+          {
+            "name": "number"
+          }
+        ]
+      },
+      "typeParameters": [],
+      "docType": {
+        "description": "Multiplies each number emitted by the source Observable by a value.",
+        "params": [
+          {
+            "name": "value",
+            "type": "number",
+            "description": "- The value to multiply by."
+          }
+        ],
+        "returns": {
+          "name": "Function",
+          "description": "A function that takes an Observable and returns an Observable.",
+          "type": [
+            "Observable<number>"
+          ]
+        }
+      },
+      "name": "multiply",
+      "operators": [
+        {
+          "name": "map",
+          "parameters": [
+            {
+              "threeDots": false,
+              "arrowFunction": true,
+              "type": [],
+              "parameters": [
+                {
+                  "arrowFunction": false,
+                  "threeDots": false,
+                  "name": "v",
+                  "type": [],
+                  "parameters": []
+                }
+              ],
+              "body": {
+                "block": false,
+                "content": [
+                  "v * value"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "arrowFunction": false,
+          "threeDots": false,
+          "name": "value",
+          "type": [
+            "number"
+          ],
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "returnType": {
+        "name": "Observable",
+        "typeParameters": [
+          {
+            "name": "number"
+          }
+        ]
+      },
+      "parameterType": {
+        "name": "Observable",
+        "typeParameters": [
+          {
+            "name": "number"
+          }
+        ]
+      },
+      "typeParameters": [],
+      "docType": {
+        "description": "Divides each number emitted by the source Observable by a value.",
+        "params": [
+          {
+            "name": "value",
+            "type": "number",
+            "description": "- The value to divide by."
+          }
+        ],
+        "returns": {
+          "name": "Function",
+          "description": "A function that takes an Observable and returns an Observable.",
+          "type": [
+            "Observable<number>"
+          ]
+        }
+      },
+      "name": "divide",
+      "operators": [
+        {
+          "name": "map",
+          "parameters": [
+            {
+              "threeDots": false,
+              "arrowFunction": true,
+              "type": [],
+              "parameters": [
+                {
+                  "arrowFunction": false,
+                  "threeDots": false,
+                  "name": "v",
+                  "type": [],
+                  "parameters": []
+                }
+              ],
+              "body": {
+                "block": false,
+                "content": [
+                  "v / value"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "arrowFunction": false,
+          "threeDots": false,
+          "name": "value",
+          "type": [
+            "number"
+          ],
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "returnType": {
+        "name": "Observable",
+        "typeParameters": [
+          {
+            "name": "number"
+          }
+        ]
+      },
+      "parameterType": {
+        "name": "Observable",
+        "typeParameters": [
+          {
+            "name": "number"
+          }
+        ]
+      },
+      "typeParameters": [],
+      "docType": {
+        "description": "Raises each number emitted by the source Observable to the power of a value.",
+        "params": [
+          {
+            "name": "value",
+            "type": "number",
+            "description": "- The exponent value."
+          }
+        ],
+        "returns": {
+          "name": "Function",
+          "description": "A function that takes an Observable and returns an Observable.",
+          "type": [
+            "Observable<number>"
+          ]
+        }
+      },
+      "name": "power",
+      "operators": [
+        {
+          "name": "map",
+          "parameters": [
+            {
+              "threeDots": false,
+              "arrowFunction": true,
+              "type": [],
+              "parameters": [
+                {
+                  "arrowFunction": false,
+                  "threeDots": false,
+                  "name": "v",
+                  "type": [],
+                  "parameters": []
+                }
+              ],
+              "body": {
+                "block": false,
+                "content": [
+                  "Math.pow(v, value)"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "arrowFunction": false,
+          "threeDots": false,
+          "name": "value",
+          "type": [
+            "number"
+          ],
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "returnType": {
+        "name": "Observable",
+        "typeParameters": [
+          {
+            "name": "number"
+          }
+        ]
+      },
+      "parameterType": {
+        "name": "Observable",
+        "typeParameters": [
+          {
+            "name": "number"
+          }
+        ]
+      },
+      "typeParameters": [],
+      "docType": {
+        "description": "Calculates the square root of each number emitted by the source Observable.",
+        "params": [],
+        "returns": {
+          "name": "Function",
+          "description": "A function that takes an Observable and returns an Observable.",
+          "type": [
+            "Observable<number>"
+          ]
+        }
+      },
+      "name": "sqrt",
+      "operators": [
+        {
+          "name": "map",
+          "parameters": [
+            {
+              "threeDots": false,
+              "arrowFunction": true,
+              "type": [],
+              "parameters": [
+                {
+                  "arrowFunction": false,
+                  "threeDots": false,
+                  "name": "v",
+                  "type": [],
+                  "parameters": []
+                }
+              ],
+              "body": {
+                "block": false,
+                "content": [
+                  "Math.sqrt(v)"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "parameters": []
+    },
+    {
+      "returnType": {
+        "name": "Observable",
+        "typeParameters": [
+          {
+            "name": "number"
+          }
+        ]
+      },
+      "parameterType": {
+        "name": "Observable",
+        "typeParameters": [
+          {
+            "name": "number"
+          }
+        ]
+      },
+      "typeParameters": [],
+      "docType": {
+        "description": "Calculates the logarithm (base 10) of each number emitted by the source Observable.",
+        "params": [],
+        "returns": {
+          "name": "Function",
+          "description": "A function that takes an Observable and returns an Observable.",
+          "type": [
+            "Observable<number>"
+          ]
+        }
+      },
+      "name": "log",
+      "operators": [
+        {
+          "name": "map",
+          "parameters": [
+            {
+              "threeDots": false,
+              "arrowFunction": true,
+              "type": [],
+              "parameters": [
+                {
+                  "arrowFunction": false,
+                  "threeDots": false,
+                  "name": "v",
+                  "type": [],
+                  "parameters": []
+                }
+              ],
+              "body": {
+                "block": false,
+                "content": [
+                  "Math.log10(v)"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "parameters": []
+    },
+    {
+      "returnType": {
+        "name": "Observable",
+        "typeParameters": [
+          {
+            "name": "number"
+          }
+        ]
+      },
+      "parameterType": {
+        "name": "Observable",
+        "typeParameters": [
+          {
+            "name": "number"
+          }
+        ]
+      },
+      "typeParameters": [],
+      "docType": {
+        "description": "Calculates the natural logarithm (base e) of each number emitted by the source Observable.",
+        "params": [],
+        "returns": {
+          "name": "Function",
+          "description": "A function that takes an Observable and returns an Observable.",
+          "type": [
+            "Observable<number>"
+          ]
+        }
+      },
+      "name": "ln",
+      "operators": [
+        {
+          "name": "map",
+          "parameters": [
+            {
+              "threeDots": false,
+              "arrowFunction": true,
+              "type": [],
+              "parameters": [
+                {
+                  "arrowFunction": false,
+                  "threeDots": false,
+                  "name": "v",
+                  "type": [],
+                  "parameters": []
+                }
+              ],
+              "body": {
+                "block": false,
+                "content": [
+                  "Math.log(v)"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "parameters": []
+    },
+    {
+      "returnType": {
+        "name": "Observable",
+        "typeParameters": [
+          {
+            "name": "number"
+          }
+        ]
+      },
+      "parameterType": {
+        "name": "Observable",
+        "typeParameters": [
+          {
+            "name": "number"
+          }
+        ]
+      },
+      "typeParameters": [],
+      "docType": {
+        "description": "Calculates the sine of each number emitted by the source Observable.",
+        "params": [],
+        "returns": {
+          "name": "Function",
+          "description": "A function that takes an Observable and returns an Observable.",
+          "type": [
+            "Observable<number>"
+          ]
+        }
+      },
+      "name": "sin",
+      "operators": [
+        {
+          "name": "map",
+          "parameters": [
+            {
+              "threeDots": false,
+              "arrowFunction": true,
+              "type": [],
+              "parameters": [
+                {
+                  "arrowFunction": false,
+                  "threeDots": false,
+                  "name": "v",
+                  "type": [],
+                  "parameters": []
+                }
+              ],
+              "body": {
+                "block": false,
+                "content": [
+                  "Math.sin(v)"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "parameters": []
+    },
+    {
+      "returnType": {
+        "name": "Observable",
+        "typeParameters": [
+          {
+            "name": "number"
+          }
+        ]
+      },
+      "parameterType": {
+        "name": "Observable",
+        "typeParameters": [
+          {
+            "name": "number"
+          }
+        ]
+      },
+      "typeParameters": [],
+      "docType": {
+        "description": "Calculates the cosine of each number emitted by the source Observable.",
+        "params": [],
+        "returns": {
+          "name": "Function",
+          "description": "A function that takes an Observable and returns an Observable.",
+          "type": [
+            "Observable<number>"
+          ]
+        }
+      },
+      "name": "cos",
+      "operators": [
+        {
+          "name": "map",
+          "parameters": [
+            {
+              "threeDots": false,
+              "arrowFunction": true,
+              "type": [],
+              "parameters": [
+                {
+                  "arrowFunction": false,
+                  "threeDots": false,
+                  "name": "v",
+                  "type": [],
+                  "parameters": []
+                }
+              ],
+              "body": {
+                "block": false,
+                "content": [
+                  "Math.cos(v)"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "parameters": []
+    },
+    {
+      "returnType": {
+        "name": "Observable",
+        "typeParameters": [
+          {
+            "name": "number"
+          }
+        ]
+      },
+      "parameterType": {
+        "name": "Observable",
+        "typeParameters": [
+          {
+            "name": "number"
+          }
+        ]
+      },
+      "typeParameters": [],
+      "docType": {
+        "description": "Calculates the tangent of each number emitted by the source Observable.",
+        "params": [],
+        "returns": {
+          "name": "Function",
+          "description": "A function that takes an Observable and returns an Observable.",
+          "type": [
+            "Observable<number>"
+          ]
+        }
+      },
+      "name": "tan",
+      "operators": [
+        {
+          "name": "map",
+          "parameters": [
+            {
+              "threeDots": false,
+              "arrowFunction": true,
+              "type": [],
+              "parameters": [
+                {
+                  "arrowFunction": false,
+                  "threeDots": false,
+                  "name": "v",
+                  "type": [],
+                  "parameters": []
+                }
+              ],
+              "body": {
+                "block": false,
+                "content": [
+                  "Math.tan(v)"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "parameters": []
     }
   ]
 }

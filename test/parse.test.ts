@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import parse from '../src/parse/index';
+import { parse } from '../src';
 import { getFixtureConfig, getFixtureFile } from './utils';
 
 describe('parse', () => {

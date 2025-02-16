@@ -45,19 +45,17 @@
     {
       "returnType": {
         "name": "Observable",
-        "type": [
+        "typeParameters": [
           {
-            "name": "T",
-            "type": []
+            "name": "T"
           }
         ]
       },
       "parameterType": {
         "name": "Observable",
-        "type": [
+        "typeParameters": [
           {
-            "name": "T",
-            "type": []
+            "name": "T"
           }
         ]
       },
@@ -128,19 +126,17 @@
     {
       "returnType": {
         "name": "Observable",
-        "type": [
+        "typeParameters": [
           {
-            "name": "T",
-            "type": []
+            "name": "T"
           }
         ]
       },
       "parameterType": {
         "name": "Observable",
-        "type": [
+        "typeParameters": [
           {
-            "name": "T",
-            "type": []
+            "name": "T"
           }
         ]
       },
@@ -184,19 +180,17 @@
     {
       "returnType": {
         "name": "Observable",
-        "type": [
+        "typeParameters": [
           {
-            "name": "number",
-            "type": []
+            "name": "number"
           }
         ]
       },
       "parameterType": {
         "name": "Observable",
-        "type": [
+        "typeParameters": [
           {
-            "name": "number",
-            "type": []
+            "name": "number"
           }
         ]
       },
@@ -320,19 +314,17 @@
     {
       "returnType": {
         "name": "Observable",
-        "type": [
+        "typeParameters": [
           {
-            "name": "number",
-            "type": []
+            "name": "number"
           }
         ]
       },
       "parameterType": {
         "name": "Observable",
-        "type": [
+        "typeParameters": [
           {
-            "name": "number",
-            "type": []
+            "name": "number"
           }
         ]
       },

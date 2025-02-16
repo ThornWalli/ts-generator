@@ -8,8 +8,8 @@ export function getDocType(node: ts.Node) {
   }
   return jsDoc.reduce(
     (result: DocTypeDescription, entry) => {
-      if (ts.isJSDocReturnTag(entry)) {
-        if (entry.typeExpression && ts.isTypeReferenceNode(entry.typeExpression.type)) {
+      if (ts.isJSDocReturnTag(entry) && entry.typeExpression) {
+        if (ts.isTypeReferenceNode(entry.typeExpression.type)) {
           const typeReferenceType = entry.typeExpression.type;
           if (ts.isIdentifier(typeReferenceType.typeName)) {
             const identifier = typeReferenceType.typeName;
@@ -21,6 +21,14 @@ export function getDocType(node: ts.Node) {
               type
             };
           }
+        } else if (ts.isJSDocFunctionType(entry.typeExpression.type)) {
+          const functionType = entry.typeExpression.type;
+          const type = functionType.parameters.map(param => param.type?.getText()).filter(Boolean) as string[];
+          result.returns = {
+            name: 'function',
+            description: ts.getTextOfJSDocComment(entry.comment),
+            type
+          };
         }
       } else if (ts.isJSDocParameterTag(entry)) {
         result.params.push({

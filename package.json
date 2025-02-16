@@ -31,9 +31,9 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:dev": "vitest dev",
-    "dev:build": "tsx watch script/build.ts",
-    "dev:parse": "tsx watch script/parse.ts",
-    "dev:parse-build": "tsx watch script/parse-build.ts"
+    "dev:build": "tsx watch scripts/build.ts",
+    "dev:parse": "tsx watch scripts/parse.ts",
+    "dev:parse-build": "tsx watch scripts/parse-build.ts"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "19.6.0",
