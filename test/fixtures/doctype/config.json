@@ -1,0 +1,85 @@
+{
+  "imports": [
+    {
+      "alias": "Observable",
+      "name": "Observable",
+      "path": "rxjs"
+    },
+    {
+      "alias": "operatorA",
+      "name": "operatorA",
+      "path": "./operators"
+    }
+  ],
+  "operators": [
+    {
+      "returnType": {
+        "name": "Observable",
+        "typeParameters": [
+          {
+            "name": "number"
+          }
+        ]
+      },
+      "parameterType": {
+        "name": "Observable",
+        "typeParameters": [
+          {
+            "name": "number"
+          }
+        ]
+      },
+      "typeParameters": [],
+      "docType": {
+        "description": "Function Description",
+        "params": [
+          {
+            "name": "value",
+            "type": "number",
+            "description": "Property Description"
+          }
+        ],
+        "returns": {
+          "name": "Observable",
+          "description": "Return Description",
+          "type": [
+            "number"
+          ]
+        }
+      },
+      "name": "operator",
+      "operators": [
+        {
+          "name": "operatorA",
+          "parameters": [
+            {
+              "threeDots": false,
+              "arrowFunction": false,
+              "type": [],
+              "parameters": [
+                {
+                  "arrowFunction": false,
+                  "name": "value",
+                  "threeDots": false,
+                  "type": [],
+                  "parameters": []
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "arrowFunction": false,
+          "threeDots": false,
+          "name": "value",
+          "type": [
+            "number"
+          ],
+          "parameters": []
+        }
+      ]
+    }
+  ]
+}

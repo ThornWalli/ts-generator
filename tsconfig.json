@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "module": "ESNext",
+    "target": "ESNext",
+    "outDir": "./dist",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "paths": {
+      "rxjs/*": [
+        "./node_modules/rxjs/*"
+      ]
+    }
+  },
+  "include": [
+    "scripts/**/*.ts",
+    "build/**/*.ts",
+    "src/**/*.ts",
+    "test/**/*.ts",
+    "!test/fixtures/**/*.ts",
+    "./node_modules/rxjs/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}
