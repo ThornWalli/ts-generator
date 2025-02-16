@@ -1,7 +1,7 @@
 import ts, { JSDocTag } from 'typescript';
-import { DocTypeDescription } from '../types';
+import { DocTypeOperatorDescription } from '../types';
 
-export function addDocType(functionDeclaration: ts.FunctionDeclaration, options: DocTypeDescription) {
+export function addDocType(functionDeclaration: ts.FunctionDeclaration, options: DocTypeOperatorDescription) {
   const tags: JSDocTag[] = [
     ...options.params.map(param => {
       return ts.factory.createJSDocParameterTag(

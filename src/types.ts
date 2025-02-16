@@ -28,7 +28,7 @@ export type OperatorDescription = {
   name: string | undefined;
   operators: SubOperatorDescription[];
   parameters: ParameterDescription[];
-  docType: DocTypeDescription | undefined;
+  docType: DocTypeOperatorDescription | undefined;
 };
 export type SubOperatorDescription = {
   name: string;
@@ -71,7 +71,7 @@ export type DocTypeParamDescription = {
   type: string;
   description: string | undefined;
 };
-export type DocTypeDescription = {
+export type DocTypeOperatorDescription = {
   description: string | undefined;
   params: DocTypeParamDescription[];
   returns:

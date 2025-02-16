@@ -1,5 +1,5 @@
 import ts from 'typescript';
-import { DocTypeDescription, TYPE_DEFINITIONS } from '../types';
+import { DocTypeOperatorDescription, TYPE_DEFINITIONS } from '../types';
 
 export function getDocType(node: ts.Node) {
   const jsDoc = [...ts.getJSDocCommentsAndTags(node), ...ts.getJSDocTags(node)];
@@ -7,7 +7,7 @@ export function getDocType(node: ts.Node) {
     return;
   }
   return jsDoc.reduce(
-    (result: DocTypeDescription, entry) => {
+    (result: DocTypeOperatorDescription, entry) => {
       if (ts.isJSDocReturnTag(entry) && entry.typeExpression) {
         if (ts.isTypeReferenceNode(entry.typeExpression.type)) {
           const typeReferenceType = entry.typeExpression.type;
